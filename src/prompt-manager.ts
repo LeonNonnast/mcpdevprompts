@@ -119,6 +119,32 @@ export class PromptManager {
     return this.prompts.get(id);
   }
 
+  searchPromptByProfile(agent_name: string) {
+    const lowercaseQuery = agent_name.toLowerCase();
+    const results: PromptWithScore[] = [];
+
+    for (const prompt of this.prompts.values()) {
+      let score = 0;
+
+      // Check title
+      if (prompt.id.toLowerCase() == lowercaseQuery) {
+        score += 5;
+      }
+
+      // Check title
+      if (prompt.title.toLowerCase().includes(lowercaseQuery)) {
+        score += 3;
+      }
+
+      if (score > 0) {
+        results.push({ ...prompt, searchScore: score });
+      }
+    }
+
+    // Sort by score (descending)
+    return results;
+  }
+
   /**
    * Search prompts by query (title, description, tags)
    */
@@ -188,7 +214,29 @@ export class PromptManager {
     }
 
     // Sort by score (descending)
-    return results.sort((a, b) => b.searchScore - a.searchScore);
+    return results;
+  }
+
+  searchPromptsByCategory(category: string) {
+    const lowercaseQuery = category.toLowerCase();
+    const results: PromptWithScore[] = [];
+
+    for (const prompt of this.prompts.values()) {
+      let score = 0;
+
+      // Check tags
+      // Check category
+      if (prompt.category.toLowerCase().includes(lowercaseQuery)) {
+        score += 1;
+      }
+
+      if (score > 0) {
+        results.push({ ...prompt, searchScore: score });
+      }
+    }
+
+    // Sort by score (descending)
+    return results;
   }
 
   /**

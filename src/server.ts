@@ -221,15 +221,24 @@ class DevMCPServer {
             };
 
           case "list_skills":
-            const skillsPrompts = await this.promptManager.searchPromptsByTag("skills");
-            const skillsList = skillsPrompts.map(skill => ({
+            const skillsPrompts =
+              await this.promptManager.searchPromptsByCategory("skills");
+
+            let skillsList = skillsPrompts.map((skill) => ({
               id: skill.id,
               title: skill.title,
               description: skill.description,
               tags: skill.tags,
-              effectiveness: skill.effectiveness
+              effectiveness: skill.effectiveness,
             }));
-            
+
+            if (args && Array.isArray(args.tags) && args.tags.length > 0) {
+              const tags: string[] = args.tags;
+              skillsList = skillsList.filter((item) => {
+                return item.tags.some((item) => tags.includes(item));
+              });
+            }
+
             logger.info(`Listed ${skillsList.length} skills`);
 
             return {
@@ -264,25 +273,59 @@ class DevMCPServer {
               );
             }
 
-            const agentName = args.agent_name || "Specialized Agent";
-            const combinedSkills = skillPrompts.map(skill => skill.prompt).join("\n\n---\n\n");
-            
-            const skillLoadPrompt = `You are now a ${agentName} with the following specialized skills:
+            let resultPrompt = "";
 
-${combinedSkills}
+            if (
+              args &&
+              args.agent_name &&
+              typeof args.agent_name === "string" &&
+              args.agent_name != ""
+            ) {
+              const agentName = args.agent_name;
 
-You have been equipped with these ${skillPrompts.length} specialized skills:
-${skillPrompts.map(skill => `- ${skill.title}: ${skill.description}`).join('\n')}
+              const agentPrompts =
+                this.promptManager.searchPromptByProfile(agentName);
+
+              const agentPrompt =
+                agentPrompts.length > 0 ? agentPrompts[0] : undefined;
+
+              if (agentPrompt) {
+                resultPrompt +=
+                  "# Your Profile" +
+                  "/nPlease read your profile carefully and try to imagine yourself in the role as much as possible. You embody this person.";
+
+                resultPrompt = resultPrompt + "/n" + agentPrompt.prompt;
+                resultPrompt =
+                  resultPrompt +
+                  +"/n/n" +
+                  (agentPrompt.examples || [])?.join("/n");
+              }
+            }
+
+            resultPrompt +=
+              "# Your Skillset" +
+              "/nThese are your skills, please familiarize yourself with them and internalize them. It's like the religion you live. Respect the skills and be confident with them. Feel free to take notes and summarize them for yourself.";
+
+            resultPrompt += `Your specialized Skills (${skillPrompts.length}):
+            | title | description | examples |
+            | -------- | -------- | -------- |
+
+${skillPrompts.map(
+  (skill) =>
+    `| ${skill.title} | ${skill.description} | ${(skill.examples || [])
+      .map((item) => item.input)
+      .join("\n")} |`
+)}
 
 Please acknowledge that you have integrated these skills and are ready to apply them in your responses. Use these skills naturally when relevant to user requests.`;
 
-            logger.info(`Loaded ${skillPrompts.length} skills for agent: ${agentName}`);
+            logger.info(`Loaded ${skillPrompts.length} skills for your agent`);
 
             return {
               content: [
                 {
                   type: "text",
-                  text: skillLoadPrompt,
+                  text: resultPrompt,
                 },
               ],
             };

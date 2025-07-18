@@ -6,9 +6,12 @@
   "input_schema": {
     "type": "object",
     "properties": {
-      "category": {
-        "type": "string",
-        "description": "Optional: filter by category (clean-code, testing, etc.)"
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Optional: filter by tags (clean-code, testing, etc.)"
       }
     },
     "required": []

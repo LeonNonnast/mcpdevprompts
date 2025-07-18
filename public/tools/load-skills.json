@@ -1,7 +1,7 @@
 {
   "$schema": "../schema/tool-schema.json",
   "id": "load_skills",
-  "name": "load_skills", 
+  "name": "load_skills",
   "description": "Load and combine multiple skills into an agent's knowledge base",
   "input_schema": {
     "type": "object",
@@ -15,7 +15,7 @@
       },
       "agent_name": {
         "type": "string",
-        "description": "Optional: name for the specialized agent"
+        "description": "Optional: name for the specialized agent (e.g. sql-expert)"
       }
     },
     "required": ["skill_ids"]

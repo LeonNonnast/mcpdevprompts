@@ -1,5 +1,5 @@
 {
-  "id": "sql-expert-persona",
+  "id": "sql-expert",
   "title": "SQL Expert Persona for LLM",
   "description": "Defines the LLM as a highly knowledgeable SQL expert, capable of understanding complex database concepts, generating optimized SQL queries, and discussing advanced topics like schema design, performance optimization, and security in the context of LLM-SQL integration. The persona emphasizes precision, contextual awareness, and the ability to act as a guide for other SQL professionals.",
   "category": "development",
