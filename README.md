@@ -15,10 +15,10 @@ A lightweight MCP server providing battle-tested prompts for AI-powered developm
 
 ```bash
 # Install globally
-npm install -g @mcpdevprompts/server
+npm install -g @mcpdevprompts
 
 # Or run directly
-npx @mcpdevprompts/server
+npx @mcpdevprompts
 ```
 
 ### Usage with Claude
@@ -36,6 +36,7 @@ claude prompt clean-code-clarity-readability "Create a user service with clean c
 ### Quick Workflow Examples
 
 #### 🔍 Discover Available Profiles & Skills
+
 ```bash
 # See all available AI profiles
 claude search_profiles
@@ -47,6 +48,7 @@ claude list_skills
 ```
 
 #### 👥 Work with AI Profiles
+
 ```bash
 # Use a specialized debugging expert
 claude prompt debug-andy "My React app crashes randomly on mobile devices"
@@ -59,6 +61,7 @@ claude prompt performance-kai "My Node.js API response time increased by 200%"
 ```
 
 #### 🧠 Load Skills into Your Agent
+
 ```bash
 # Load clean code skills
 claude load_skills '{
@@ -82,6 +85,7 @@ claude load_skills '{
 #### 🎯 Real-World Scenarios
 
 **Scenario 1: Debugging Session**
+
 ```bash
 # 1. Start with debugging expert
 claude prompt debug-andy "API endpoint returns 500 error intermittently"
@@ -97,6 +101,7 @@ claude load_skills '{
 ```
 
 **Scenario 2: Code Quality Review**
+
 ```bash
 # 1. Load clean code skills
 claude load_skills '{
@@ -109,6 +114,7 @@ claude load_skills '{
 ```
 
 **Scenario 3: Onboard New AI Agent**
+
 ```bash
 # 1. Onboard a specialized editor
 claude prompt project-onboarding "Introduce lovable-ai-editor-base for code refactoring tasks"
@@ -124,7 +130,7 @@ claude load_skills '{
 
 ```bash
 # Clone and test locally
-git clone https://github.com/mcpdevprompts/server.git
+git clone https://github.com/mcpdevprompts.git
 cd server
 npm install
 npm run build
@@ -134,6 +140,7 @@ npm run inspector  # Opens MCP Inspector for testing
 ## 📚 Available Prompts
 
 ### 👥 AI Profiles
+
 Expert AI assistants for specialized tasks:
 
 - **debug-andy**: Systematic debugging with root cause analysis
@@ -144,6 +151,7 @@ Expert AI assistants for specialized tasks:
 - **replit-expert-software-developer-editor**: Full-stack development guidance
 
 ### 🛠️ Skills & Techniques
+
 Development skills and methodologies:
 
 - **project-onboarding**: Introduce specialized AI agents to your workflow
@@ -154,16 +162,18 @@ Development skills and methodologies:
 - **testing-strategies**: Create comprehensive test suites
 
 ### 🎯 Specialized Tools
+
 Built-in tools for enhanced functionality:
 
 - **search_prompts**: Find prompts by keyword or category
-- **search_profiles**: Find AI profiles by specialization  
+- **search_profiles**: Find AI profiles by specialization
 - **get_prompt_stats**: View prompt collection statistics
 - **get_tool_stats**: View available tools and usage
 - **list_skills**: List all available development skills
 - **load_skills**: Load multiple skills into an agent's knowledge base
 
 **Tool Examples:**
+
 ```bash
 # Search for profiles
 claude search_profiles
@@ -185,6 +195,7 @@ claude get_prompt_stats
 ## 💡 Use Cases
 
 ### For Frontend Developers
+
 ```bash
 # Get clean code generation
 claude prompt clean-code-clarity-readability "Create a React component for user profile"
@@ -197,6 +208,7 @@ claude prompt clean-code-commenting "Add documentation to this API endpoint"
 ```
 
 ### For Backend Developers
+
 ```bash
 # Database optimization
 claude prompt sql-expert "Optimize this N+1 query problem"
@@ -209,6 +221,7 @@ claude prompt debug-andy "Random 500 errors in production"
 ```
 
 ### For Team Leads
+
 ```bash
 # Agent onboarding
 claude prompt project-onboarding "Introduce lovable-ai-editor profile for code review"
@@ -221,6 +234,7 @@ claude prompt testing-strategies "Create testing plan for new microservice"
 ```
 
 ### For Code Quality & Skill Management
+
 ```bash
 # Clean code generation
 claude prompt clean-code-clarity-readability "Create a user authentication service"
@@ -234,14 +248,17 @@ claude load_skills '{"skill_ids": ["clean-code-clarity-readability", "clean-code
 ## 🎪 Skill Management System
 
 ### Available Skills
+
 Our skill system provides modular development expertise that can be combined into specialized agents:
 
 **Clean Code Skills:**
+
 - `clean-code-clarity-readability`: Generate self-explanatory code with meaningful names
 - `clean-code-small-functions`: Write focused, single-responsibility functions
 - `clean-code-commenting`: Add meaningful comments and documentation
 
 **Development Skills:**
+
 - `testing-strategies`: Create comprehensive test suites and testing plans
 - `error-handling-best-practices`: Implement robust error handling patterns
 - `project-onboarding`: Guide specialized AI agents into workflow integration
@@ -249,10 +266,13 @@ Our skill system provides modular development expertise that can be combined int
 ### Skill Workflow
 
 #### 1. Discover Available Skills
+
 ```bash
 claude list_skills
 ```
+
 **Returns:**
+
 ```json
 [
   {
@@ -263,7 +283,7 @@ claude list_skills
     "effectiveness": 5
   },
   {
-    "id": "clean-code-small-functions", 
+    "id": "clean-code-small-functions",
     "title": "Generate Small, Single-Responsibility Functions",
     "description": "Write focused, single-purpose functions under 20 lines",
     "tags": ["clean code", "functions", "modularity"],
@@ -273,6 +293,7 @@ claude list_skills
 ```
 
 #### 2. Load Skills into Agent
+
 ```bash
 claude load_skills '{
   "skill_ids": ["clean-code-clarity-readability", "clean-code-small-functions", "testing-strategies"],
@@ -281,6 +302,7 @@ claude load_skills '{
 ```
 
 **Returns:**
+
 ```
 You are now a Clean Code Expert with the following specialized skills:
 
@@ -295,6 +317,7 @@ Please acknowledge that you have integrated these skills and are ready to apply 
 ```
 
 #### 3. Use Your Specialized Agent
+
 After loading skills, your agent automatically applies them to relevant requests:
 
 ```bash
@@ -306,6 +329,7 @@ After loading skills, your agent automatically applies them to relevant requests
 ### Pre-Built Skill Combinations
 
 **🧹 Clean Code Expert**
+
 ```bash
 claude load_skills '{
   "skill_ids": ["clean-code-clarity-readability", "clean-code-small-functions", "clean-code-commenting"],
@@ -314,6 +338,7 @@ claude load_skills '{
 ```
 
 **🧪 Testing Specialist**
+
 ```bash
 claude load_skills '{
   "skill_ids": ["testing-strategies", "error-handling-best-practices"],
@@ -322,6 +347,7 @@ claude load_skills '{
 ```
 
 **🎯 Full-Stack Quality Agent**
+
 ```bash
 claude load_skills '{
   "skill_ids": ["clean-code-clarity-readability", "clean-code-small-functions", "testing-strategies", "error-handling-best-practices"],
@@ -360,6 +386,7 @@ mcpdevprompts/
 ## 🔧 Development
 
 ### Prerequisites
+
 - Node.js 18.0.0 or higher
 - npm or yarn
 
@@ -386,11 +413,13 @@ npm run inspector
 ### Adding New Prompts
 
 1. **Choose the right category**:
+
    - `profiles/` - AI assistant personalities
    - `skills/` - Development techniques
    - `onboarding/` - Setup and integration
 
 2. **Follow the schema** (see `public/schema/prompt-schema.json`):
+
    ```json
    {
      "id": "unique-prompt-id",
@@ -423,10 +452,11 @@ Tools extend the MCP server functionality with custom operations. Follow these s
 1. **Choose a meaningful tool name** (e.g., `analyze_code`, `generate_tests`, `check_dependencies`)
 
 2. **Create the tool definition** in `public/tools/your-tool.json`:
+
    ```json
    {
      "id": "analyze_code_complexity",
-     "name": "analyze_code_complexity", 
+     "name": "analyze_code_complexity",
      "description": "Analyze code complexity and suggest improvements",
      "input_schema": {
        "type": "object",
@@ -436,7 +466,7 @@ Tools extend the MCP server functionality with custom operations. Follow these s
            "description": "The code to analyze"
          },
          "language": {
-           "type": "string", 
+           "type": "string",
            "description": "Programming language (js, ts, py, etc.)"
          },
          "metrics": {
@@ -451,17 +481,18 @@ Tools extend the MCP server functionality with custom operations. Follow these s
    ```
 
 3. **Implement the tool logic** in `src/server.ts` CallToolRequestSchema handler:
+
    ```typescript
    case "analyze_code_complexity":
      if (!args || typeof args.code !== "string") {
        throw new McpError(ErrorCode.InvalidRequest, "Code parameter is required");
      }
-     
+
      const analysis = await this.analyzeCodeComplexity(args.code, args.language);
      return {
        content: [
          {
-           type: "text", 
+           type: "text",
            text: JSON.stringify(analysis, null, 2)
          }
        ]
@@ -471,6 +502,7 @@ Tools extend the MCP server functionality with custom operations. Follow these s
 4. **Test the tool** with MCP Inspector and various inputs
 
 **Tool Ideas:**
+
 - `validate_env_vars`: Check environment variable completeness
 - `generate_tests`: Create unit tests for given code
 - `check_dependencies`: Analyze package.json for vulnerabilities
@@ -481,6 +513,7 @@ Tools extend the MCP server functionality with custom operations. Follow these s
 ## 📊 Quality Standards
 
 All prompts must meet these criteria:
+
 - **Effectiveness**: Average rating of 4.0+ from community testing
 - **Clarity**: Clear, actionable instructions
 - **Completeness**: Comprehensive coverage of the task
@@ -492,6 +525,7 @@ All prompts must meet these criteria:
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
 ### Types of Contributions
+
 - **New Prompts**: Add high-quality prompts for common development tasks
 - **Prompt Improvements**: Enhance existing prompts based on user feedback
 - **Documentation**: Improve setup guides and usage examples
@@ -511,9 +545,9 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 - [x] **Phase 1**: TypeScript MCP server with core prompts
 - [x] **Phase 2**: AI profiles and specialized tools
 - [x] **Phase 3**: Skill management system with combinable expertise
-- [ ] **Phase 4**: Community contributions and rating system
-- [ ] **Phase 5**: IDE integrations and advanced analytics
-- [ ] **Phase 6**: Custom prompt collections and enterprise features
+- [x] **Phase 4**: Community contributions and rating system
+- [x] **Phase 5**: IDE integrations and advanced analytics
+- [x] **Phase 6**: Custom prompt collections and enterprise features
 
 ## 📝 License
 
