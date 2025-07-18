@@ -1,0 +1,11 @@
+{
+  "$schema": "../schema/tool-schema.json",
+  "id": "get_prompt_stats",
+  "name": "get_prompt_stats",
+  "description": "Get statistics about available prompts",
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}

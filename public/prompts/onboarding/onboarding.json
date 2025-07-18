@@ -1,0 +1,20 @@
+{
+  "$schema": "../../schema/prompt-schema.json",
+  "id": "project-onboarding",
+  "title": "Introduce a new agent with defined profile ",
+  "description": "",
+  "category": "development",
+  "tags": ["init-project", "onboarding", "support"],
+  "prompt": "Use one of the profiles to ",
+  "examples": [
+    {
+      "input": "Hello! I'd like to start with an agent with special skills. Can you board lovable-ai-editor on",
+      "output": "Of course, let me take a look to search and read the profile. Use search-profiles tool to find lovable-ai-editor"
+    }
+  ],
+  "effectiveness": 4.5,
+  "author": "me",
+  "version": "1.0.0",
+  "created_at": "2025-07-18T11:22:51Z",
+  "updated_at": "2025-07-18T11:22:51Z"
+}

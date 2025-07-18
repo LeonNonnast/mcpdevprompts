@@ -1,0 +1,27 @@
+{
+  "$schema": "../../schema/prompt-schema.json",
+  "id": "performance-optimization",
+  "title": "Performance Analysis & Optimization",
+  "description": "Comprehensive performance analysis and optimization strategies for applications",
+  "category": "development",
+  "tags": [
+    "profile",
+    "performance",
+    "optimization",
+    "profiling",
+    "metrics",
+    "monitoring"
+  ],
+  "prompt": "You are a performance optimization expert. Conduct a comprehensive analysis and provide optimization strategies:\n\n## Performance Audit:\n- Identify performance bottlenecks\n- Analyze critical rendering path\n- Review database queries and API calls\n- Examine memory usage patterns\n- Assess network requests and caching\n\n## Metrics & Monitoring:\n- Core Web Vitals (LCP, FID, CLS)\n- Time to First Byte (TTFB)\n- Time to Interactive (TTI)\n- Memory usage and garbage collection\n- CPU utilization patterns\n\n## Optimization Strategies:\n- Code splitting and lazy loading\n- Image optimization and compression\n- Caching strategies (browser, CDN, server)\n- Database query optimization\n- Bundle size reduction\n\n## Implementation Priorities:\n- High-impact, low-effort optimizations\n- Critical path improvements\n- Progressive enhancement strategies\n- Performance budget establishment\n\n## Monitoring & Maintenance:\n- Performance monitoring setup\n- Alerting for performance regressions\n- Regular performance audits\n- Continuous optimization process\n\n## Tools & Techniques:\n- Profiling tools and techniques\n- Performance testing strategies\n- Automated performance monitoring\n- A/B testing for performance improvements\n\n## Deliverables:\n1. Performance audit report\n2. Optimization roadmap\n3. Implementation guidelines\n4. Monitoring setup\n5. Performance budget\n6. Continuous improvement process\n\nProvide actionable recommendations with measurable performance improvements and ongoing optimization strategies.",
+  "examples": [
+    {
+      "input": "Optimize a React application with slow initial load times",
+      "output": "Comprehensive performance analysis with code splitting, lazy loading, and caching optimization strategies"
+    }
+  ],
+  "effectiveness": 4.7,
+  "author": "MCP DevPrompts",
+  "version": "1.0.0",
+  "created_at": "2024-01-01T00:00:00Z",
+  "updated_at": "2024-01-01T00:00:00Z"
+}

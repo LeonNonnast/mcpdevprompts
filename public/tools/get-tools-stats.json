@@ -1,0 +1,11 @@
+{
+  "$schema": "../schema/tool-schema.json",
+  "id": "get_tool_stats",
+  "name": "get_tool_stats",
+  "description": "Get statistics about available tools",
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}

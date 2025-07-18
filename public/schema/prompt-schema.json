@@ -1,0 +1,76 @@
+{
+  "title": "string",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the prompt"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of what the prompt does"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "ui-design",
+        "onboarding",
+        "development",
+        "debugging",
+        "documentation"
+      ],
+      "description": "Prompt category"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for searchability"
+    },
+    "prompt": {
+      "type": "string",
+      "description": "The actual prompt text"
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "input": { "type": "string" },
+          "output": { "type": "string" }
+        }
+      },
+      "description": "Example inputs and expected outputs"
+    },
+    "effectiveness": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 5,
+      "description": "Community effectiveness rating"
+    },
+    "author": {
+      "type": "string",
+      "description": "Prompt author"
+    },
+    "version": {
+      "type": "string",
+      "description": "Prompt version (semantic versioning)"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation timestamp"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    }
+  },
+  "required": ["id", "title", "prompt", "category", "version"]
+}

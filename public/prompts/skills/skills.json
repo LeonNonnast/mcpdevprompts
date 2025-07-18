@@ -1,0 +1,983 @@
+[
+  {
+    "id": "clean-code-clarity-readability",
+    "title": "Generate Clear and Readable Code",
+    "description": "Generate code that is self-explanatory, using clear and meaningful names, and logical organization, minimizing the need for extensive comments.",
+    "category": "development",
+    "tags": ["clean code", "readability", "maintainability"],
+    "prompt": "Generate a code snippet for [SPECIFIC FUNCTIONALITY]. Ensure the code adheres to Clean Code principles, emphasizing clarity and readability. Use meaningful names for variables, functions, and classes, avoiding cryptic abbreviations or generic terms. The code should be self-explanatory.",
+    "examples": [
+      {
+        "input": "Function to calculate the area of a rectangle.",
+        "output": "```python\ndef calculate_rectangle_area(length: float, width: float) -> float:\n    \"\"\"Calculates the area of a rectangle given its length and width.\n\n    Args:\n        length: The length of the rectangle.\n        width: The width of the rectangle.\n\n    Returns:\n        The area of the rectangle.\n    \"\"\"\n    rectangle_area = length * width\n    return rectangle_area\n```"
+      },
+      {
+        "input": "React component for displaying a user's profile.",
+        "output": "```jsx\n// React Component (TypeScript)\ninterface UserProfileProps {\n  firstName: string;\n  lastName: string;\n  age: number;\n  emailAddress: string;\n}\n\nconst UserProfile: React.FC<UserProfileProps> = ({ firstName, lastName, age, emailAddress }) => {\n  return (\n    <div className=\"user-profile-card\">\n      <h2>{firstName} {lastName}</h2>\n      <p>Age: {age}</p>\n      <p>Email: {emailAddress}</p>\n    </div>\n  );\n};\n\nexport default UserProfile;\n```"
+      },
+      {
+        "input": "TypeScript function to format a date.",
+        "output": "```typescript\n// TypeScript function\nfunction formatDisplayDate(dateToFormat: Date): string {\n  const options: Intl.DateTimeFormatOptions = {\n    year: 'numeric',\n    month: 'long',\n    day: 'numeric'\n  };\n  return new Intl.DateTimeFormat('en-US', options).format(dateToFormat);\n}\n\n// Usage:\n// const today = new Date();\n// const formattedDate = formatDisplayDate(today); // e.g., \"July 18, 2025\"\n```"
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "clean-code-small-functions",
+    "title": "Generate Small, Single-Responsibility Functions",
+    "description": "Generate functions that are concise, ideally no more than 20 lines, and perform a single, clearly defined task. This improves readability, testability, and reusability.",
+    "category": "development",
+    "tags": ["clean code", "functions", "modularity", "reusability"],
+    "prompt": "Generate a Python function for [SPECIFIC TASK]. Ensure the function is concise, ideally under 20 lines, and has a single, clearly defined responsibility. For instance, if processing data, have one function to load, one to transform, and one to save, rather than one large function for all.",
+    "examples": [
+      {
+        "input": "Write a function to process user input, including validation and saving to a database.",
+        "output": "```python\ndef validate_user_input(input_data: dict) -> bool:\n    # Validation logic\n    pass\n\ndef save_user_to_database(user_data: dict) -> None:\n    # Database saving logic\n    pass\n\ndef process_user_registration(user_data: dict) -> bool:\n    if validate_user_input(user_data):\n        save_user_to_database(user_data)\n        return True\n    return False\n```"
+      },
+      {
+        "input": "Vue.js component methods for handling a form submission, specifically separating data validation from API submission.",
+        "output": "```vue\n<template>\n  <form @submit.prevent=\"handleSubmit\">\n    <input type=\"text\" v-model=\"username\" placeholder=\"Username\" />\n    <input type=\"password\" v-model=\"password\" placeholder=\"Password\" />\n    <button type=\"submit\">Register</button>\n  </form>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from 'vue';\nimport axios from 'axios'; // Assuming axios for API calls\n\nconst username = ref('');\nconst password = ref('');\n\ninterface UserData {\n  username: string;\n  password: string;\n}\n\nfunction validateInput(data: UserData): boolean {\n  if (!data.username || data.username.length < 3) {\n    alert('Username must be at least 3 characters.');\n    return false;\n  }\n  if (!data.password || data.password.length < 6) {\n    alert('Password must be at least 6 characters.');\n    return false;\n  }\n  return true;\n}\n\nasync function submitUserData(data: UserData): Promise<boolean> {\n  try {\n    const response = await axios.post('/api/register', data);\n    console.log('Registration successful:', response.data);\n    return true;\n  } catch (error) {\n    console.error('Registration failed:', error);\n    alert('Registration failed. Please try again.');\n    return false;\n  }\n}\n\nasync function handleSubmit() {\n  const userData: UserData = { username: username.value, password: password.value };\n  if (validateInput(userData)) {\n    await submitUserData(userData);\n  }\n}\n</script>\n```"
+      },
+      {
+        "input": "TypeScript functions for processing a list of users: one for filtering active users, one for formatting their names, and one for combining these operations.",
+        "output": "```typescript\ninterface User {\n  id: number;\n  name: string;\n  isActive: boolean;\n}\n\nfunction filterActiveUsers(users: User[]): User[] {\n  return users.filter(user => user.isActive);\n}\n\nfunction formatUserNames(users: User[]): string[] {\n  return users.map(user => user.name.toUpperCase());\n}\n\nfunction getFormattedActiveUserNames(users: User[]): string[] {\n  const activeUsers = filterActiveUsers(users);\n  const formattedNames = formatUserNames(activeUsers);\n  return formattedNames;\n}\n\n// Usage:\n// const allUsers: User[] = [{ id: 1, name: 'Alice', isActive: true }, { id: 2, name: 'Bob', isActive: false }];\n// const activeNames = getFormattedActiveUserNames(allUsers); // ['ALICE']\n```"
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "clean-code-single-abstraction-level",
+    "title": "Generate Functions with a Single Abstraction Level",
+    "description": "Generate functions where all statements operate at the same conceptual level, separating high-level logic from detailed implementations. Utilize 'Extract Method' refactoring where appropriate.",
+    "category": "development",
+    "tags": ["clean code", "abstraction", "refactoring"],
+    "prompt": "Generate a Java method for [SPECIFIC PROCESS] that adheres to the 'one level of abstraction per function' principle. Separate high-level steps from their detailed implementations, potentially suggesting 'Extract Method' refactorings for lower-level operations.",
+    "examples": [
+      {
+        "input": "Method for user signup: handling form submission, validating, creating user, and sending welcome email.",
+        "output": "```java\npublic class UserService {\n    public void signUpUser(UserRegistrationForm form) {\n        validateForm(form);\n        User newUser = createUserFromForm(form);\n        saveUser(newUser);\n        sendWelcomeEmail(newUser);\n    }\n\n    private void validateForm(UserRegistrationForm form) { /* ... */ }\n    private User createUserFromForm(UserRegistrationForm form) { /* ... */ }\n    private void saveUser(User user) { /* ... */ }\n    private void sendWelcomeEmail(User user) { /* ... */ }\n}\n```"
+      },
+      {
+        "input": "Python function to process an e-commerce order, including steps like validating stock, processing payment, and dispatching for shipping.",
+        "output": "```python\nclass OrderProcessor:\n    def process_customer_order(self, order_details: dict) -> bool:\n        # High-level steps of order processing\n        if not self._verify_stock(order_details['items']):\n            print(\"Not enough stock.\")\n            return False\n        if not self._process_payment(order_details['payment_info'], order_details['total_amount']):\n            print(\"Payment failed.\")\n            return False\n        self._dispatch_for_shipping(order_details['order_id'])\n        print(f\"Order {order_details['order_id']} processed successfully.\")\n        return True\n\n    def _verify_stock(self, items: list) -> bool:\n        # Detailed implementation of stock verification\n        print(\"Verifying stock...\")\n        return True # Placeholder\n\n    def _process_payment(self, payment_info: dict, amount: float) -> bool:\n        # Detailed implementation of payment processing\n        print(f\"Processing payment for {amount}...\")\n        return True # Placeholder\n\n    def _dispatch_for_shipping(self, order_id: str) -> None:\n        # Detailed implementation of shipping dispatch\n        print(f\"Dispatching order {order_id} for shipping...\")\n\n# Usage:\n# processor = OrderProcessor()\n# processor.process_customer_order({'order_id': 'ORD123', 'items': ['itemA'], 'payment_info': {}, 'total_amount': 100.0})\n```"
+      },
+      {
+        "input": "TypeScript React component method that handles the submission of a multi-step form, where each step involves different validation and data handling.",
+        "output": "```tsx\n// React Component (TypeScript)\nimport React, { useState } from 'react';\n\ninterface FormData {\n  step1Data: any;\n  step2Data: any;\n}\n\nconst MultiStepForm: React.FC = () => {\n  const [formData, setFormData] = useState<FormData>({\n    step1Data: null,\n    step2Data: null\n  });\n  const [currentStep, setCurrentStep] = useState(1);\n\n  // High-level handler for form progression\n  const handleNextStep = () => {\n    if (currentStep === 1) {\n      if (validateStep1(formData.step1Data)) {\n        setCurrentStep(2);\n      }\n    } else if (currentStep === 2) {\n      if (validateStep2(formData.step2Data)) {\n        submitFinalForm(formData);\n      }\n    }\n  };\n\n  // Lower-level validation for step 1\n  const validateStep1 = (data: any): boolean => {\n    console.log('Validating step 1 data:', data);\n    // ... detailed validation logic for step 1\n    return true; // Placeholder\n  };\n\n  // Lower-level validation for step 2\n  const validateStep2 = (data: any): boolean => {\n    console.log('Validating step 2 data:', data);\n    // ... detailed validation logic for step 2\n    return true; // Placeholder\n  };\n\n  // Lower-level final form submission\n  const submitFinalForm = (data: FormData) => {\n    console.log('Submitting final form data:', data);\n    // ... detailed API submission logic\n    alert('Form submitted successfully!');\n  };\n\n  const renderStep = () => {\n    if (currentStep === 1) {\n      return (\n        <div>\n          <h3>Step 1</h3>\n          <input type=\"text\" onChange={(e) => setFormData({ ...formData, step1Data: e.target.value })} />\n        </div>\n      );\n    } else if (currentStep === 2) {\n      return (\n        <div>\n          <h3>Step 2</h3>\n          <input type=\"text\" onChange={(e) => setFormData({ ...formData, step2Data: e.target.value })} />\n        </div>\n      );\n    }\n    return null;\n  };\n\n  return (\n    <div>\n      {renderStep()}\n      <button onClick={handleNextStep}>Next</button>\n    </div>\n  );\n};\n\nexport default MultiStepForm;\n```"
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "clean-code-tests",
+    "title": "Generate Code with Comprehensive Unit Tests",
+    "description": "Generate code alongside its unit tests. The tests should be fast, independent, repeatable, self-validating, and written contemporaneously with the production code.",
+    "category": "development",
+    "tags": ["clean code", "testing", "unit tests", "TDD"],
+    "prompt": "Generate a JavaScript function for [FUNCTIONALITY] and its corresponding unit tests. Ensure the tests are fast, independent, repeatable, self-validating, and cover the expected behavior of the function.",
+    "examples": [
+      {
+        "input": "Function to sum two numbers.",
+        "output": "```javascript\n// Production Code\nfunction sum(a, b) {\n    return a + b;\n}\n\n// Unit Tests\ndescribe('sum', () => {\n    it('should return the sum of two positive numbers', () => {\n        expect(sum(2, 3)).toBe(5);\n    });\n\n    it('should return the sum of a positive and a negative number', () => {\n        expect(sum(5, -2)).toBe(3);\n    });\n\n    it('should return zero when summing zero', () => {\n        expect(sum(0, 0)).toBe(0);\n    });\n});\n```"
+      },
+      {
+        "input": "Python function to check if a string is a palindrome, along with pytest unit tests.",
+        "output": "```python\n# Production Code (Python)\ndef is_palindrome(text: str) -> bool:\n    cleaned_text = ''.join(filter(str.isalnum, text)).lower()\n    return cleaned_text == cleaned_text[::-1]\n\n# Unit Tests (Pytest)\nimport pytest\n\ndef test_is_palindrome_simple_word():\n    assert is_palindrome(\"madam\") == True\n\ndef test_is_palindrome_sentence_with_spaces_and_punctuation():\n    assert is_palindrome(\"A man, a plan, a canal: Panama\") == True\n\ndef test_is_palindrome_non_palindrome():\n    assert is_palindrome(\"hello\") == False\n\ndef test_is_palindrome_empty_string():\n    assert is_palindrome(\"\") == True\n\ndef test_is_palindrome_single_character():\n    assert is_palindrome(\"a\") == True\n\ndef test_is_palindrome_case_insensitivity():\n    assert is_palindrome(\"Racecar\") == True\n```"
+      },
+      {
+        "input": "TypeScript function to validate an email address, along with Jest unit tests.",
+        "output": "```typescript\n// Production Code (TypeScript)\nfunction isValidEmail(email: string): boolean {\n  // A simple regex for demonstration. Real-world validation is more complex.\n  const emailRegex = /^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/;\n  return emailRegex.test(email);\n}\n\n// Unit Tests (Jest - TypeScript)\ndescribe('isValidEmail', () => {\n  it('should return true for a valid email address', () => {\n    expect(isValidEmail('test@example.com')).toBe(true);\n  });\n\n  it('should return false for an invalid email format', () => {\n    expect(isValidEmail('test@example')).toBe(false);\n    expect(isValidEmail('testexample.com')).toBe(false);\n    expect(isValidEmail('test@.com')).toBe(false);\n  });\n\n  it('should return false for an empty string', () => {\n    expect(isValidEmail('')).toBe(false);\n  });\n\n  it('should handle emails with subdomains', () => {\n    expect(isValidEmail('user@sub.domain.com')).toBe(true);\n  });\n});\n```"
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "clean-code-no-duplication-dry",
+    "title": "Generate Code Adhering to DRY Principle",
+    "description": "Generate code that avoids duplication, following the 'Don't Repeat Yourself' (DRY) principle. Suggest abstractions or refactoring techniques like 'Extract Method' to eliminate redundant code.",
+    "category": "development",
+    "tags": ["clean code", "DRY", "duplication", "refactoring"],
+    "prompt": "Generate code for [SCENARIO WITH POTENTIAL DUPLICATION]. Ensure it adheres to the DRY principle by identifying and eliminating repetitive code blocks through appropriate abstractions or by extracting common logic into reusable functions/methods.",
+    "examples": [
+      {
+        "input": "Code for processing different types of orders (e.g., online, in-store), where logging and notification steps are identical.",
+        "output": "```python\ndef _log_order_processing(order_id: str, order_type: str):\n    print(f\"Processing order {order_id} ({order_type})...\")\n\ndef _send_order_notification(order_id: str, recipient: str):\n    print(f\"Sending notification for order {order_id} to {recipient}.\")\n\ndef process_online_order(order_data: dict):\n    _log_order_processing(order_data['id'], 'online')\n    # Specific online order processing logic\n    _send_order_notification(order_data['id'], order_data['customer_email'])\n\ndef process_in_store_order(order_data: dict):\n    _log_order_processing(order_data['id'], 'in-store')\n    # Specific in-store order processing logic\n    _send_order_notification(order_data['id'], order_data['clerk_email'])\n```"
+      },
+      {
+        "input": "TypeScript functions for validating user input fields (e.g., name, email), where multiple fields share common validation rules like 'not empty' or 'minimum length'.",
+        "output": "```typescript\n// TypeScript\ninterface ValidationResult {\n  isValid: boolean;\n  message?: string;\n}\n\nfunction validateRequired(value: string, fieldName: string): ValidationResult {\n  if (!value || value.trim() === '') {\n    return { isValid: false, message: `${fieldName} is required.` };\n  }\n  return { isValid: true };\n}\n\nfunction validateMinLength(value: string, minLength: number, fieldName: string): ValidationResult {\n  if (value.length < minLength) {\n    return { isValid: false, message: `${fieldName} must be at least ${minLength} characters long.` };\n  }\n  return { isValid: true };\n}\n\nfunction validateUserName(username: string): ValidationResult {\n  let result = validateRequired(username, 'Username');\n  if (!result.isValid) return result;\n\n  result = validateMinLength(username, 5, 'Username');\n  if (!result.isValid) return result;\n\n  // Specific username validation\n  return { isValid: true };\n}\n\nfunction validateEmailAddress(email: string): ValidationResult {\n  let result = validateRequired(email, 'Email');\n  if (!result.isValid) return result;\n\n  // Specific email format validation (simplified)\n  if (!email.includes('@')) {\n    return { isValid: false, message: 'Invalid email format.' };\n  }\n\n  return { isValid: true };\n}\n\n// Usage:\n// console.log(validateUserName('john'));\n// console.log(validateEmailAddress('invalid-email'));\n```"
+      },
+      {
+        "input": "React components that display similar lists of items (e.g., product list, user list) with common rendering logic for each item.",
+        "output": "```jsx\n// React Component\ninterface ItemProps {\n  id: string;\n  name: string;\n  description: string;\n}\n\nconst ListItem: React.FC<ItemProps> = ({ name, description }) => (\n  <div className=\"list-item\">\n    <h3>{name}</h3>\n    <p>{description}</p>\n  </div>\n);\n\ninterface ItemListProps {\n  items: ItemProps[];\n  title: string;\n}\n\nconst ItemList: React.FC<ItemListProps> = ({ items, title }) => (\n  <div className=\"item-list-container\">\n    <h2>{title}</h2>\n    {items.map(item => (\n      <ListItem key={item.id} {...item} />\n    ))}\n  </div>\n);\n\n// Usage in parent component:\n// const products = [{ id: 'p1', name: 'Laptop', description: 'Powerful laptop' }];\n// const users = [{ id: 'u1', name: 'Alice', description: 'Software Engineer' }];\n// <ItemList items={products} title=\"Products\" />\n// <ItemList items={users} title=\"Users\" />\n```\nHere, the `ListItem` component encapsulates the common rendering logic for an individual item, and `ItemList` reuses it for different lists, adhering to DRY."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "clean-code-continuous-improvement",
+    "title": "Improve Existing Codebase (Boy Scout Rule)",
+    "description": "Analyze a given code snippet or module and suggest refactorings to leave it cleaner than found, adhering to the 'Boy Scout Rule'. Focus on small, continuous improvements.",
+    "category": "development",
+    "tags": [
+      "clean code",
+      "refactoring",
+      "continuous improvement",
+      "maintainability"
+    ],
+    "prompt": "Review the following Java code snippet:\n```java\n[CODE_SNIPPET]\n```\nSuggest specific refactoring improvements to make it cleaner, more readable, or more maintainable, even if the change is small. Justify your suggestions based on Clean Code principles.",
+    "examples": [
+      {
+        "input": "```java\npublic class Calculator {\n    public int calculate(int a, int b, String operation) {\n        if (operation.equals(\"add\")) {\n            return a + b;\n        } else if (operation.equals(\"subtract\")) {\n            return a - b;\n        } else {\n            return 0;\n        }\n    }\n}\n```",
+        "output": "To improve `Calculator.calculate`:\n\n1.  **Introduce an Enum for Operation:** Replace the `String operation` with an enum to make the operations type-safe and more explicit, reducing potential for typos and making the code more readable.\n2.  **Extract Operation Logic:** The `if-else if` ladder can be refactored into separate methods or even a strategy pattern to adhere to 'small functions' and 'single abstraction level' principles. This improves readability and makes adding new operations easier.\n\nRefactored suggestion:\n```java\npublic enum OperationType {\n    ADD, SUBTRACT\n}\n\npublic class Calculator {\n    public int calculate(int a, int b, OperationType operation) {\n        switch (operation) {\n            case ADD:\n                return add(a, b);\n            case SUBTRACT:\n                return subtract(a, b);\n            default:\n                return 0; // Or throw an IllegalArgumentException\n        }\n    }\n\n    private int add(int a, int b) {\n        return a + b;\n    }\n\n    private int subtract(int a, int b) {\n        return a - b;\n    }\n}\n```"
+      },
+      {
+        "input": "```python\ndef process_data(data_list):\n    result = []\n    for item in data_list:\n        if item > 0:\n            squared_item = item * item\n            if squared_item % 2 == 0:\n                result.append(squared_item)\n    return result\n```",
+        "output": "To improve `process_data`:\n\n1.  **Extract Helper Functions:** The nested `if` statements and the squaring logic can be extracted into smaller, more focused functions to improve readability and testability. This adheres to the 'small functions' and 'single abstraction level' principles.\n2.  **Use List Comprehensions (Pythonic):** For simple transformations and filtering, list comprehensions can make the code more concise and readable, making it more Pythonic.\n\nRefactored suggestion:\n```python\ndef _is_positive_and_even_square(num: int) -> bool:\n    \"\"\"Checks if a number's square is positive and even.\"\"\"\n    return num > 0 and (num * num) % 2 == 0\n\ndef _square_number(num: int) -> int:\n    \"\"\"Squares a given number.\"\"\"\n    return num * num\n\ndef process_data_improved(data_list: list[int]) -> list[int]:\n    # Using list comprehension for a more concise and readable transformation\n    return [_square_number(item) for item in data_list if _is_positive_and_even_square(item)]\n\n# Or, if avoiding list comprehension for clarity is preferred:\ndef process_data_alternative(data_list: list[int]) -> list[int]:\n    result = []\n    for item in data_list:\n        if _is_positive_and_even_square(item):\n            result.append(_square_number(item))\n    return result\n\n```"
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "solid-single-responsibility-principle",
+    "title": "Design Class Adhering to Single Responsibility Principle (SRP)",
+    "description": "Design a class or module where each entity has a single, clearly defined responsibility, encapsulating that functionality completely. This leads to smaller, cleaner, more maintainable, and testable classes.",
+    "category": "development",
+    "tags": ["SOLID", "SRP", "object-oriented design", "modularity"],
+    "prompt": "Design a set of Python classes for a [SYSTEM/COMPONENT] ensuring each class adheres strictly to the Single Responsibility Principle. Clearly define the single responsibility for each class you propose.",
+    "examples": [
+      {
+        "input": "A class to handle user management, including user creation, user validation, and sending user notifications.",
+        "output": "Instead of one `UserManager` class, split responsibilities:\n\n* `UserCreator`: Responsible for creating new user accounts.\n* `UserValidator`: Responsible for validating user data.\n* `NotificationService`: Responsible for sending various notifications (e.g., welcome emails).\n\nThis makes each class smaller, more focused, and easier to test and maintain."
+      },
+      {
+        "input": "TypeScript classes for a reporting module that generates reports, formats them, and exports them to different file types (PDF, CSV).",
+        "output": "To adhere to SRP, responsibilities should be separated:\n\n* `ReportGenerator`: Responsible for fetching and preparing the raw report data.\n* `ReportFormatter`: Responsible for taking raw report data and formatting it (e.g., into a presentable HTML table or structured JSON).\n* `PdfExporter`: Responsible for converting formatted report data into a PDF file.\n* `CsvExporter`: Responsible for converting formatted report data into a CSV file.\n\n```typescript\n// TypeScript Interfaces/Classes\ninterface ReportData {\n  // ... report data structure\n}\n\ninterface FormattedReport {\n  // ... formatted report structure\n}\n\ninterface IReportGenerator {\n  generateReport(criteria: any): ReportData;\n}\n\ninterface IReportFormatter {\n  format(data: ReportData): FormattedReport;\n}\n\ninterface IReportExporter {\n  export(formattedReport: FormattedReport): void;\n}\n\nclass SalesReportGenerator implements IReportGenerator {\n  generateReport(criteria: any): ReportData { \n    console.log('Generating sales report...');\n    return { /* ... actual data */ }; \n  }\n}\n\nclass TableReportFormatter implements IReportFormatter {\n  format(data: ReportData): FormattedReport { \n    console.log('Formatting report as table...');\n    return { /* ... formatted data */ }; \n  }\n}\n\nclass PdfReportExporter implements IReportExporter {\n  export(formattedReport: FormattedReport): void { \n    console.log('Exporting report to PDF...');\n    // ... PDF generation logic \n  }\n}\n\nclass CsvReportExporter implements IReportExporter {\n  export(formattedReport: FormattedReport): void { \n    console.log('Exporting report to CSV...');\n    // ... CSV generation logic \n  }\n}\n```\nThis design ensures that each class has a single reason to change. If PDF export logic changes, only `PdfExporter` is affected."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "solid-open-closed-principle",
+    "title": "Design Code for Extension, Not Modification (OCP)",
+    "description": "Design software entities to be open for extension but closed for modification. New functionality should be added through extension of existing code, not by altering it.",
+    "category": "development",
+    "tags": ["SOLID", "OCP", "object-oriented design", "extensibility"],
+    "prompt": "Design a system in C# for [SCENARIO REQUIRING FLEXIBILITY] that adheres to the Open/Closed Principle. Show how new functionality can be added without modifying existing code, likely using interfaces or abstract classes.",
+    "examples": [
+      {
+        "input": "A system to calculate the area of different shapes (circle, square, triangle).",
+        "output": "```csharp\n// Open for extension: New shapes can be added\npublic interface IShape\n{\n    double CalculateArea();\n}\n\npublic class Circle : IShape\n{\n    public double Radius { get; set; }\n    public double CalculateArea() => Math.PI * Radius * Radius;\n}\n\npublic class Square : IShape\n{\n    public double Side { get; set; }\n    public double CalculateArea() => Side * Side;\n}\n\n// Closed for modification: The calculator doesn't need to change\npublic class AreaCalculator\n{\n    public double CalculateTotalArea(IShape[] shapes)\n    {\n        double totalArea = 0;\n        foreach (var shape in shapes)\n        {\n            totalArea += shape.CalculateArea();\n        }\n        return totalArea;\n    }\n}\n```\nTo add a `Triangle` shape, you would simply create a new `Triangle` class implementing `IShape` without modifying `AreaCalculator`."
+      },
+      {
+        "input": "A system for applying different types of discounts (e.g., percentage discount, fixed amount discount, buy-one-get-one-free) to a shopping cart, where new discount types may be added in the future.",
+        "output": "```typescript\n// TypeScript - OCP with Strategy Pattern\ninterface DiscountStrategy {\n  applyDiscount(price: number): number;\n  getDescription(): string;\n}\n\nclass PercentageDiscount implements DiscountStrategy {\n  private percentage: number;\n\n  constructor(percentage: number) {\n    this.percentage = percentage;\n  }\n\n  applyDiscount(price: number): number {\n    return price * (1 - this.percentage / 100);\n  }\n\n  getDescription(): string {\n    return `${this.percentage}% off`;\n  }\n}\n\nclass FixedAmountDiscount implements DiscountStrategy {\n  private amount: number;\n\n  constructor(amount: number) {\n    this.amount = amount;\n  }\n\n  applyDiscount(price: number): number {\n    return Math.max(0, price - this.amount);\n  }\n\n  getDescription(): string {\n    return `$${this.amount} off`;\n  }\n}\n\nclass BuyOneGetOneFreeDiscount implements DiscountStrategy {\n  applyDiscount(price: number): number {\n    // Simplified: assume price is for one item, and second is free\n    return price / 2; // For two items, effectively 50% off each\n  }\n\n  getDescription(): string {\n    return `Buy One Get One Free`;\n  }\n}\n\nclass ShoppingCart {\n  private items: { name: string; price: number }[];\n  private discountStrategy: DiscountStrategy | null;\n\n  constructor() {\n    this.items = [];\n    this.discountStrategy = null;\n  }\n\n  addItem(name: string, price: number) {\n    this.items.push({ name, price });\n  }\n\n  setDiscountStrategy(strategy: DiscountStrategy) {\n    this.discountStrategy = strategy;\n  }\n\n  calculateTotalPrice(): number {\n    let total = this.items.reduce((sum, item) => sum + item.price, 0);\n    if (this.discountStrategy) {\n      total = this.discountStrategy.applyDiscount(total);\n    }\n    return total;\n  }\n\n  getDiscountDescription(): string {\n    return this.discountStrategy ? this.discountStrategy.getDescription() : 'No discount applied.';\n  }\n}\n\n// Usage:\n// const cart = new ShoppingCart();\n// cart.addItem('Laptop', 1000);\n// cart.addItem('Mouse', 50);\n\n// cart.setDiscountStrategy(new PercentageDiscount(10));\n// console.log(`Total after ${cart.getDiscountDescription()}: $${cart.calculateTotalPrice()}`); // 945\n\n// cart.setDiscountStrategy(new FixedAmountDiscount(20));\n// console.log(`Total after ${cart.getDiscountDescription()}: $${cart.calculateTotalPrice()}`); // 1030\n\n// cart.setDiscountStrategy(new BuyOneGetOneFreeDiscount()); // For simplicity assumes 2 items for this logic\n// cart.addItem('Shirt', 40);\n// console.log(`Total after ${cart.getDiscountDescription()}: $${cart.calculateTotalPrice()}`); // (1000+50+40)/2 = 545\n```\nAdding a new discount type (e.g., `LoyaltyDiscount`) would only require creating a new class implementing `DiscountStrategy`, without modifying the `ShoppingCart` class, thus adhering to OCP."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "solid-liskov-substitution-principle",
+    "title": "Ensure Liskov Substitution Principle (LSP) Adherence in Inheritance",
+    "description": "When designing class hierarchies, ensure that objects of subclasses can be substituted for objects of their base classes without altering the correctness of the program. Focus on behavioral contracts.",
+    "category": "development",
+    "tags": [
+      "SOLID",
+      "LSP",
+      "object-oriented design",
+      "inheritance",
+      "polymorphism"
+    ],
+    "prompt": "Design a class hierarchy in Java for [DOMAIN SCENARIO] that strictly adheres to the Liskov Substitution Principle. Provide examples demonstrating how a subtype can be substituted for its base type without breaking client code.",
+    "examples": [
+      {
+        "input": "A hierarchy for vehicles where a `Car` is a `Vehicle` and a `Bicycle` is a `Vehicle`. Focus on a common action like `startEngine`.",
+        "output": "Violating LSP example:\n```java\nclass Vehicle {\n    void startEngine() { /* default implementation */ }\n}\n\nclass Car extends Vehicle {\n    @Override\n    void startEngine() { /* car specific engine start */ }\n}\n\nclass Bicycle extends Vehicle {\n    @Override\n    void startEngine() { \n        // Bicycles don't have engines, this method throws an exception or does nothing, \n        // breaking the expectation of clients using 'Vehicle'.\n        throw new UnsupportedOperationException(\"Bicycle has no engine.\");\n    }\n}\n```\n\nAdhering to LSP example (avoiding `startEngine` in `Vehicle`):\n```java\ninterface Movable {\n    void move();\n}\n\nclass Vehicle implements Movable {\n    // Common vehicle properties/methods\n    public void move() { System.out.println(\"Vehicle is moving.\"); }\n}\n\nclass Car extends Vehicle {\n    public void startEngine() { System.out.println(\"Car engine started.\"); }\n    @Override\n    public void move() { System.out.println(\"Car is driving.\"); }\n}\n\nclass Bicycle extends Vehicle {\n    public void pedal() { System.out.println(\"Bicycle is being pedaled.\"); }\n    @Override\n    public void move() { System.out.println(\"Bicycle is cycling.\"); }\n}\n\n// Client code can now use Movable without issues:\npublic class Transporter {\n    public void transport(Movable item) {\n        item.move();\n    }\n}\n```\nIn the LSP-adherent example, `Movable` defines an action common to all implementers, ensuring that any `Movable` object can be used without unexpected behavior."
+      },
+      {
+        "input": "A hierarchy of `Shape`s (e.g., `Rectangle`, `Square`) with methods for setting dimensions. Show how `Square` should not directly inherit from `Rectangle` if it breaks behavior.",
+        "output": "```python\n# Python - LSP adherence for Shapes\n\n# Problematic design (violates LSP - Square cannot substitute Rectangle naturally)\nclass Rectangle:\n    def __init__(self, width, height):\n        self._width = width\n        self._height = height\n\n    def get_area(self):\n        return self._width * self._height\n\n    def set_width(self, width):\n        self._width = width\n\n    def set_height(self, height):\n        self._height = height\n\nclass Square(Rectangle):\n    def __init__(self, side):\n        super().__init__(side, side)\n\n    def set_width(self, width): # This changes height too to maintain square property\n        self._width = width\n        self._height = width\n\n    def set_height(self, height): # This changes width too\n        self._width = height\n        self._height = height\n\n# Client code expecting Rectangle behavior\ndef demonstrate_area_change(rect: Rectangle):\n    rect.set_width(5)\n    rect.set_height(4) # Client expects width to remain 5, but for Square it becomes 4 too\n    print(f\"Area: {rect.get_area()}\")\n\n# This breaks LSP: if you pass a Square to demonstrate_area_change, \n# the behavior of set_height is unexpected compared to a general Rectangle.\n# square = Square(3)\n# demonstrate_area_change(square) # Expected area 5*4=20, but for square it will be 4*4=16\n```\n\n```python\n# LSP-Adherent Design (Composition or separate hierarchies)\n\nclass Shape:\n    def get_area(self) -> float:\n        raise NotImplementedError\n\nclass Rectangle(Shape):\n    def __init__(self, width: float, height: float):\n        self._width = width\n        self._height = height\n\n    def get_area(self) -> float:\n        return self._width * self._height\n\n    # Only expose setters if they maintain invariants\n    def set_dimensions(self, width: float, height: float):\n        self._width = width\n        self._height = height\n\nclass Square(Shape):\n    def __init__(self, side: float):\n        self._side = side\n\n    def get_area(self) -> float:\n        return self._side * self._side\n\n    def set_side(self, side: float):\n        self._side = side\n\n# Client code works correctly with any Shape subtype\ndef print_shape_area(shape: Shape):\n    print(f\"Shape area: {shape.get_area()}\")\n\n# All subtypes behave as expected when substituted for the base type\nrect = Rectangle(5, 4)\nsquare = Square(3)\n\nprint_shape_area(rect)   # Output: Shape area: 20\nprint_shape_area(square) # Output: Shape area: 9\n```\nIn the LSP-adherent design, `Square` and `Rectangle` are distinct, both implementing `Shape` but managing their dimensions independently, preventing behavioral surprises when a `Square` is treated as a `Rectangle`."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "solid-interface-segregation-principle",
+    "title": "Design Client-Specific Interfaces (ISP)",
+    "description": "Design multiple smaller, client-specific interfaces rather than a single large, 'fat' interface. This reduces dependencies and improves modularity.",
+    "category": "development",
+    "tags": ["SOLID", "ISP", "interface design", "modularity"],
+    "prompt": "Design a set of interfaces in TypeScript for a [APPLICATION FEATURE] that adheres to the Interface Segregation Principle. Break down any large interfaces into smaller, more focused ones relevant to specific clients.",
+    "examples": [
+      {
+        "input": "A large `IWorker` interface with methods for `work()`, `eat()`, `sleep()`, `manageTasks()`, `reportPerformance()` where not all workers perform all tasks.",
+        "output": "Instead of:\n```typescript\ninterface IWorker {\n    work(): void;\n    eat(): void;\n    sleep(): void;\n    manageTasks(): void;\n    reportPerformance(): void;\n}\n```\n\nSegregate into smaller, client-specific interfaces:\n```typescript\ninterface IWorkable {\n    work(): void;\n}\n\ninterface IEatable {\n    eat(): void;\n}\n\ninterface ISleepable {\n    sleep(): void;\n}\n\ninterface IManager {\n    manageTasks(): void;\n    reportPerformance(): void;\n}\n\n// Now, different worker types can implement only what they need:\nclass HumanWorker implements IWorkable, IEatable, ISleepable { /* ... */ }\nclass RobotWorker implements IWorkable { /* ... */ }\nclass TeamLead implements IWorkable, IEatable, ISleepable, IManager { /* ... */ }\n```"
+      },
+      {
+        "input": "A `Printer` class that needs to handle printing, scanning, and faxing, but some printer models only support a subset of these functionalities.",
+        "output": "```typescript\n// TypeScript - ISP for Printer Capabilities\n\n// Instead of a monolithic IPrinter:\n// interface IPrinter {\n//   print(document: string): void;\n//   scan(document: string): string;\n//   fax(document: string, number: string): void;\n// }\n\n// Segregated Interfaces:\ninterface IPrintable {\n  print(document: string): void;\n}\n\ninterface IScannable {\n  scan(document: string): string;\n}\n\ninterface IFaxable {\n  fax(document: string, number: string): void;\n}\n\n// Concrete Implementations:\nclass BasicPrinter implements IPrintable {\n  print(document: string): void {\n    console.log(`Printing: ${document}`);\n  }\n}\n\nclass MultifunctionPrinter implements IPrintable, IScannable, IFaxable {\n  print(document: string): void {\n    console.log(`Printing: ${document}`);\n  }\n\n  scan(document: string): string {\n    console.log(`Scanning: ${document}`);\n    return `Scanned content of ${document}`;\n  }\n\n  fax(document: string, number: string): void {\n    console.log(`Faxing ${document} to ${number}`);\n  }\n}\n\nclass ScannerOnlyDevice implements IScannable {\n  scan(document: string): string {\n    console.log(`Scanning only: ${document}`);\n    return `Scanned content of ${document}`;\n  }\n}\n\n// Client Usage:\n// const myPrinter: IPrintable = new BasicPrinter();\n// myPrinter.print(\"report.pdf\");\n\n// const officeDevice: IScannable = new MultifunctionPrinter();\n// officeDevice.scan(\"invoice.jpg\");\n\n// const compactScanner: IScannable = new ScannerOnlyDevice();\n// compactScanner.scan(\"receipt.png\");\n```\nThis ensures that client classes only depend on the interfaces relevant to the functionalities they actually use, preventing them from being forced to implement methods they don't need."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "solid-dependency-inversion-principle",
+    "title": "Invert Dependencies for Loose Coupling (DIP)",
+    "description": "Design modules to depend on abstractions, not on concretions. Both high-level and low-level modules should depend on abstractions. This promotes loose coupling, flexibility, and maintainability.",
+    "category": "development",
+    "tags": [
+      "SOLID",
+      "DIP",
+      "dependency injection",
+      "loose coupling",
+      "maintainability"
+    ],
+    "prompt": "Design a system in Python for [SPECIFIC SCENARIO] applying the Dependency Inversion Principle. Show how high-level modules depend on abstractions (interfaces/abstract classes) rather than concrete low-level implementations, using dependency injection where suitable.",
+    "examples": [
+      {
+        "input": "A `PaymentProcessor` that directly depends on a concrete `StripeApi` for payment processing.",
+        "output": "Problematic direct dependency:\n```python\nclass StripeApi:\n    def charge(self, amount, token):\n        print(f\"Charging {amount} via Stripe.\")\n\nclass PaymentProcessor:\n    def __init__(self):\n        self.api = StripeApi() # Direct dependency on concrete implementation\n\n    def process_payment(self, amount, token):\n        self.api.charge(amount, token)\n```\n\nApplying DIP using an abstraction:\n```python\nfrom abc import ABC, abstractmethod\n\nclass PaymentGateway(ABC): # Abstraction\n    @abstractmethod\n    def charge(self, amount: float, token: str):\n        pass\n\nclass StripeApi(PaymentGateway): # Concrete implementation\n    def charge(self, amount: float, token: str):\n        print(f\"Charging {amount} via Stripe.\")\n\nclass PayPalApi(PaymentGateway): # Another concrete implementation\n    def charge(self, amount: float, token: str):\n        print(f\"Charging {amount} via PayPal.\")\n\nclass PaymentProcessor: # High-level module\n    def __init__(self, gateway: PaymentGateway): # Depends on abstraction\n        self.gateway = gateway\n\n    def process_payment(self, amount: float, token: str):\n        self.gateway.charge(amount, token)\n\n# Usage:\nstripe_processor = PaymentProcessor(StripeApi())\nstripe_processor.process_payment(100.0, \"token123\")\n\npaypal_processor = PaymentProcessor(PayPalApi())\npaypal_processor.process_payment(50.0, \"token456\")\n```\nHere, `PaymentProcessor` (high-level) depends on `PaymentGateway` (abstraction), not `StripeApi` (concretion)."
+      },
+      {
+        "input": "A `NotificationService` that needs to send messages via different channels (Email, SMS, Push Notification).",
+        "output": "```typescript\n// TypeScript - DIP for Notification Service\n\n// Abstraction (Interface for notification channels)\ninterface NotificationChannel {\n  send(message: string, recipient: string): void;\n}\n\n// Low-level concrete implementations\nclass EmailService implements NotificationChannel {\n  send(message: string, recipient: string): void {\n    console.log(`Sending email to ${recipient}: \"${message}\"`);\n  }\n}\n\nclass SmsService implements NotificationChannel {\n  send(message: string, recipient: string): void {\n    console.log(`Sending SMS to ${recipient}: \"${message}\"`);\n  }\n}\n\nclass PushNotificationService implements NotificationChannel {\n    send(message: string, recipient: string): void {\n        console.log(`Sending push notification to ${recipient}: \"${message}\"`);\n    }\n}\n\n// High-level module (NotificationService) depends on the abstraction\nclass NotificationService {\n  private channel: NotificationChannel;\n\n  constructor(channel: NotificationChannel) {\n    this.channel = channel; // Dependency Injection via constructor\n  }\n\n  notifyUser(message: string, userId: string): void {\n    // In a real app, userId would map to an email/phone number\n    const recipient = userId; // Simplified\n    this.channel.send(message, recipient);\n  }\n}\n\n// Usage:\n// const emailNotifier = new NotificationService(new EmailService());\n// emailNotifier.notifyUser(\"Your order has shipped!\", \"user@example.com\");\n\n// const smsNotifier = new NotificationService(new SmsService());\n// smsNotifier.notifyUser(\"Your package is out for delivery!\", \"+1234567890\");\n\n// const pushNotifier = new NotificationService(new PushNotificationService());\n// pushNotifier.notifyUser(\"New message received!\", \"user_device_id\");\n```\n`NotificationService` (high-level) depends on `NotificationChannel` (abstraction), not on concrete `EmailService` or `SmsService`. This makes the system flexible and testable."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "design-principle-dry",
+    "title": "Generate Code with No Repetition (DRY)",
+    "description": "Generate code that adheres to the 'Don't Repeat Yourself' (DRY) principle, reducing information repetition by using abstractions or data normalization.",
+    "category": "development",
+    "tags": ["DRY", "reusability", "refactoring"],
+    "prompt": "Generate a code snippet for [FUNCTIONALITY] ensuring that any logic or data that is likely to change is not duplicated. Apply the DRY principle to promote code reuse and a single source of truth.",
+    "examples": [
+      {
+        "input": "Functions for validating email and username, where both require checking for minimum length and forbidden characters.",
+        "output": "```python\ndef _is_valid_length(text: str, min_len: int) -> bool:\n    return len(text) >= min_len\n\ndef _contains_forbidden_chars(text: str, forbidden_chars: str) -> bool:\n    return any(char in forbidden_chars for char in text)\n\ndef validate_email(email: str) -> bool:\n    forbidden = \"!#$%^&*()+\"\n    if not _is_valid_length(email, 5) or _contains_forbidden_chars(email, forbidden):\n        return False\n    # Specific email validation logic\n    return True\n\ndef validate_username(username: str) -> bool:\n    forbidden = \"@!#$%^&*()+\"\n    if not _is_valid_length(username, 3) or _contains_forbidden_chars(username, forbidden):\n        return False\n    # Specific username validation logic\n    return True\n```\nShared validation logic is extracted into private helper functions to avoid duplication."
+      },
+      {
+        "input": "Vue.js components displaying data, where common data fetching and loading state management logic is repeated across multiple components.",
+        "output": "```vue\n\n<script setup lang=\"ts\">\nimport { ref, onMounted } from 'vue';\nimport axios from 'axios';\n\ninterface UserData {\n  id: number;\n  name: string;\n}\n\ninterface ProductData {\n  id: number;\n  title: string;\n}\n\n// Reusable composable for data fetching\nfunction useFetchData<T>(url: string) {\n  const data = ref<T | null>(null);\n  const isLoading = ref(true);\n  const error = ref<string | null>(null);\n\n  const fetchData = async () => {\n    isLoading.value = true;\n    error.value = null;\n    try {\n      const response = await axios.get<T>(url);\n      data.value = response.data;\n    } catch (err: any) {\n      error.value = err.message || 'Failed to fetch data';\n    } finally {\n      isLoading.value = false;\n    }\n  };\n\n  onMounted(fetchData);\n\n  return { data, isLoading, error, fetchData };\n}\n</script>\n\n<template>\n  <div>\n    \n    <div class=\"user-list\">\n      <h3>Users</h3>\n      <template v-if=\"usersLoading\">Loading users...</template>\n      <template v-else-if=\"usersError\">Error loading users: {{ usersError }}</template>\n      <template v-else>\n        <ul>\n          <li v-for=\"user in usersData\" :key=\"user.id\">{{ user.name }}</li>\n        </ul>\n      </template>\n    </div>\n\n    \n    <div class=\"product-list\">\n      <h3>Products</h3>\n      <template v-if=\"productsLoading\">Loading products...</template>\n      <template v-else-if=\"productsError\">Error loading products: {{ productsError }}</template>\n      <template v-else>\n        <ul>\n          <li v-for=\"product in productsData\" :key=\"product.id\">{{ product.title }}</li>\n        </ul>\n      </template>\n    </div>\n  </div>\n</template>\n\n<script lang=\"ts\">\nexport default {\n  setup() {\n    const { data: usersData, isLoading: usersLoading, error: usersError } = useFetchData<UserData[]>('/api/users');\n    const { data: productsData, isLoading: productsLoading, error: productsError } = useFetchData<ProductData[]>('/api/products');\n\n    return {\n      usersData,\n      usersLoading,\n      usersError,\n      productsData,\n      productsLoading,\n      productsError,\n    };\n  },\n};\n</script>\n```\nBy creating a `useFetchData` composable, the repetitive logic for fetching data, managing loading states, and handling errors is centralized, making the code DRY."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "design-principle-kiss",
+    "title": "Generate Simple and Understandable Code (KISS)",
+    "description": "Generate code that adheres to the 'Keep It Simple, Stupid' (KISS) principle, ensuring designs and systems are as simple as possible to understand and maintain.",
+    "category": "development",
+    "tags": ["KISS", "simplicity", "maintainability"],
+    "prompt": "Generate a solution for [PROBLEM] that prioritizes simplicity and ease of understanding, following the KISS principle. Avoid unnecessary complexity and ensure the code is straightforward to read and adopt.",
+    "examples": [
+      {
+        "input": "A function to determine if a year is a leap year, using a complex set of nested conditions.",
+        "output": "Complex (non-KISS) approach:\n```python\ndef is_leap_year_complex(year: int) -> bool:\n    if year % 4 == 0:\n        if year % 100 == 0:\n            if year % 400 == 0:\n                return True\n            else:\n                return False\n        else:\n            return True\n    else:\n        return False\n```\n\nSimple (KISS) approach:\n```python\ndef is_leap_year_simple(year: int) -> bool:\n    return (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0)\n```\nThe simple version is much easier to read and understand, demonstrating the KISS principle."
+      },
+      {
+        "input": "React component for a simple toggle button that changes text and color.",
+        "output": "```jsx\n// React Component (TypeScript)\nimport React, { useState } from 'react';\n\nconst SimpleToggleButton: React.FC = () => {\n  const [isOn, setIsOn] = useState(false);\n\n  const buttonStyle = {\n    backgroundColor: isOn ? 'green' : 'red',\n    color: 'white',\n    padding: '10px 20px',\n    borderRadius: '5px',\n    cursor: 'pointer',\n    border: 'none'\n  };\n\n  return (\n    <button onClick={() => setIsOn(!isOn)} style={buttonStyle}>\n      {isOn ? 'ON' : 'OFF'}\n    </button>\n  );\n};\n\nexport default SimpleToggleButton;\n```\nThis component uses a single state variable and straightforward conditional rendering, keeping the logic simple and easy to understand, adhering to KISS."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "design-principle-yagni",
+    "title": "Generate Only Necessary Functionality (YAGNI)",
+    "description": "Generate code that adheres to the 'You Aren't Gonna Need It' (YAGNI) principle, adding functionality only when it is deemed necessary, preventing over-engineering and unnecessary complexity.",
+    "category": "development",
+    "tags": ["YAGNI", "over-engineering", "simplicity"],
+    "prompt": "Generate code for the current requirements of [FEATURE]. Do not include any anticipated future functionalities or abstractions that are not immediately needed, adhering strictly to the YAGNI principle. Focus only on what is essential now.",
+    "examples": [
+      {
+        "input": "Design a user authentication system that needs basic login. Suggest extending it for OAuth and multi-factor authentication for future needs.",
+        "output": "Adhering to YAGNI, only implement basic username/password login for now.\n\n```python\nclass BasicAuthenticator:\n    def login(self, username, password):\n        # Basic authentication logic\n        if username == \"user\" and password == \"pass\":\n            return True\n        return False\n```\n\nAvoid adding complex OAuth or MFA integrations until they are explicitly required, as they introduce unnecessary complexity and technical debt for the current scope."
+      },
+      {
+        "input": "Design a data processing utility that currently only needs to parse CSV files. Future requirements might include JSON and XML.",
+        "output": "Adhering to YAGNI, implement only CSV parsing for now. Avoid creating an abstract `IDataParser` interface or factory methods for other formats until they are actually needed.\n\n```typescript\n// TypeScript\ninterface CsvRow {\n  [key: string]: string;\n}\n\nfunction parseCsvData(csvString: string): CsvRow[] {\n  const lines = csvString.trim().split('\\n');\n  if (lines.length === 0) return [];\n\n  const headers = lines[0].split(',');\n  const data: CsvRow[] = [];\n\n  for (let i = 1; i < lines.length; i++) {\n    const values = lines[i].split(',');\n    const row: CsvRow = {};\n    headers.forEach((header, index) => {\n      row[header.trim()] = values[index].trim();\n    });\n    data.push(row);\n  }\n  return data;\n}\n\n// Usage:\n// const csvInput = \"name,age\\nAlice,30\\nBob,24\";\n// const parsed = parseCsvData(csvInput);\n// console.log(parsed);\n/*\nOutput:\n[\n  { name: 'Alice', age: '30' },\n  { name: 'Bob', age: '24' }\n]\n*/\n```\nThis code is focused solely on CSV parsing. Introducing additional complexity for JSON/XML parsing now would be premature optimization according to YAGNI."
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "procedural-clear-naming-conventions",
+    "title": "Apply Clear Naming Conventions in Procedural Code",
+    "description": "Generate procedural code using clear and descriptive naming conventions for variables, functions, and files. Use snake_case for variables/functions and uppercase for constants.",
+    "category": "development",
+    "tags": ["procedural programming", "naming conventions", "readability"],
+    "prompt": "Generate a C function for [TASK] that follows clear naming conventions for procedural programming. Use `snake_case` for variables and function names, and `UPPER_CASE` for any constants.",
+    "examples": [
+      {
+        "input": "Function to calculate the maximum value in an array.",
+        "output": "```c\n#define MAX_ARRAY_SIZE 100\n\nint calculate_max_value_in_array(int* input_array, int array_length) {\n    if (array_length <= 0 || input_array == NULL) {\n        return -1; // Indicate error or handle appropriately\n    }\n\n    int current_max_value = input_array[0];\n    for (int i = 1; i < array_length; i++) {\n        if (input_array[i] > current_max_value) {\n            current_max_value = input_array[i];\n        }\n    }\n    return current_max_value;\n}\n```"
+      },
+      {
+        "input": "Python script for file processing: reading, transforming, and writing data.",
+        "output": "```python\n# Python script (procedural style)\n\nimport os\n\nINPUT_DIRECTORY = 'data/input'\nOUTPUT_DIRECTORY = 'data/output'\nPROCESSED_FILE_PREFIX = 'processed_'\n\ndef read_file_content(file_path: str) -> list[str]:\n    with open(file_path, 'r') as file:\n        lines = file.readlines()\n    return [line.strip() for line in lines]\n\ndef transform_data_to_uppercase(data_lines: list[str]) -> list[str]:\n    transformed_lines = [line.upper() for line in data_lines]\n    return transformed_lines\n\ndef write_processed_data_to_file(file_path: str, data_lines: list[str]) -> None:\n    os.makedirs(os.path.dirname(file_path), exist_ok=True)\n    with open(file_path, 'w') as file:\n        for line in data_lines:\n            file.write(line + '\\n')\n    print(f\"Data written to {file_path}\")\n\ndef main():\n    input_file_name = 'raw_data.txt'\n    input_file_path = os.path.join(INPUT_DIRECTORY, input_file_name)\n\n    output_file_name = PROCESSED_FILE_PREFIX + input_file_name\n    output_file_path = os.path.join(OUTPUT_DIRECTORY, output_file_name)\n\n    print(f\"Processing file: {input_file_path}\")\n    raw_data = read_file_content(input_file_path)\n    transformed_data = transform_data_to_uppercase(raw_data)\n    write_processed_data_to_file(output_file_path, transformed_data)\n    print(\"File processing complete.\")\n\n# if __name__ == \"__main__\":\n#     main()\n```\nUses `snake_case` for functions and variables, and `UPPER_CASE` for constants."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "procedural-limited-scope-no-globals",
+    "title": "Minimize Global Variables in Procedural Code",
+    "description": "Generate procedural code that minimizes the use of global variables, preferring local scope to reduce unexpected side effects and debugging difficulties.",
+    "category": "development",
+    "tags": [
+      "procedural programming",
+      "global variables",
+      "side effects",
+      "debugging"
+    ],
+    "prompt": "Generate a C function for [TASK] where shared state is minimized and global variables are avoided where possible. Pass necessary data as function arguments or return values instead of relying on global state.",
+    "examples": [
+      {
+        "input": "A program to manage a simple counter, where the counter can be incremented and displayed.",
+        "output": "Problematic global variable use:\n```c\nint global_counter = 0;\n\nvoid increment_counter() {\n    global_counter++;\n}\n\nvoid display_counter() {\n    printf(\"Counter: %d\\n\", global_counter);\n}\n```\n\nImproved with local scope/passing arguments:\n```c\n// Function to increment and return new counter value\nint increment_counter(int current_counter) {\n    return current_counter + 1;\n}\n\n// Function to display counter value passed as argument\nvoid display_counter(int counter_value) {\n    printf(\"Counter: %d\\n\", counter_value);\n}\n\n// Usage in main or another function\nint my_counter = 0;\nmy_counter = increment_counter(my_counter);\ndisplay_counter(my_counter);\n```"
+      },
+      {
+        "input": "Python script that processes a list of numbers by applying a series of transformations, avoiding global lists or flags.",
+        "output": "```python\n# Python script (procedural with minimized globals)\n\ndef filter_positive_numbers(numbers: list[int]) -> list[int]:\n    return [n for n in numbers if n > 0]\n\ndef double_numbers(numbers: list[int]) -> list[int]:\n    return [n * 2 for n in numbers]\n\ndef sum_numbers(numbers: list[int]) -> int:\n    return sum(numbers)\n\ndef process_number_list(initial_numbers: list[int]) -> int:\n    # All intermediate results are passed as arguments or returned\n    positive_numbers = filter_positive_numbers(initial_numbers)\n    doubled_numbers = double_numbers(positive_numbers)\n    final_sum = sum_numbers(doubled_numbers)\n    return final_sum\n\n# Usage:\n# my_numbers = [-1, 2, 3, -4, 5]\n# result = process_number_list(my_numbers)\n# print(f\"Final result: {result}\") # Expected: (2*2) + (3*2) + (5*2) = 4 + 6 + 10 = 20\n```\nThis example shows that each function takes its input explicitly and returns its output, avoiding reliance on shared global state, making the flow predictable and easier to debug."
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "procedural-controlled-branching-loops",
+    "title": "Limit Nesting in Procedural Branching/Loops",
+    "description": "Generate procedural code with limited nesting of if/else statements and loops (ideally 2-3 levels) to prevent excessive complexity. Avoid intentional infinite loops.",
+    "category": "development",
+    "tags": [
+      "procedural programming",
+      "complexity",
+      "readability",
+      "control flow"
+    ],
+    "prompt": "Generate a C function for [ALGORITHM] that involves conditional logic and loops. Ensure the nesting level of `if/else` and loop constructs does not exceed 3 levels to maintain readability and avoid complexity.",
+    "examples": [
+      {
+        "input": "A function that processes a list of items, with conditions for valid items and sub-conditions for specific types of valid items.",
+        "output": "Complex (high nesting):\n```c\nvoid process_items_complex(int* items, int count) {\n    for (int i = 0; i < count; i++) {\n        if (items[i] > 0) {\n            if (items[i] < 100) {\n                if (items[i] % 2 == 0) {\n                    printf(\"Even item: %d\\n\", items[i]);\n                } else {\n                    printf(\"Odd item: %d\\n\", items[i]);\n                }\n            } else {\n                printf(\"Large item: %d\\n\", items[i]);\n            }\n        } else {\n            printf(\"Invalid item: %d\\n\", items[i]);\n        }\n    }\n}\n```\n\nImproved (limited nesting):\n```c\nvoid handle_valid_item(int item) {\n    if (item < 100) {\n        if (item % 2 == 0) {\n            printf(\"Even item: %d\\n\", item);\n        } else {\n            printf(\"Odd item: %d\\n\", item);\n        }\n    } else {\n        printf(\"Large item: %d\\n\", item);\n    }\n}\n\nvoid process_items_improved(int* items, int count) {\n    for (int i = 0; i < count; i++) {\n        if (items[i] > 0) {\n            handle_valid_item(items[i]);\n        } else {\n            printf(\"Invalid item: %d\\n\", items[i]);\n        }\n    }\n}\n```\nBy extracting nested logic into separate helper functions, the nesting depth is reduced, improving readability."
+      },
+      {
+        "input": "Python function to validate a configuration dictionary with nested conditions for different settings and their values.",
+        "output": "```python\n# Python (procedural with limited nesting)\ndef _validate_network_settings(network_config: dict) -> bool:\n    if 'ip_address' not in network_config or not isinstance(network_config['ip_address'], str):\n        print(\"Error: IP address missing or invalid.\")\n        return False\n    if 'port' not in network_config or not isinstance(network_config['port'], int) or not (1 <= network_config['port'] <= 65535):\n        print(\"Error: Port missing or invalid.\")\n        return False\n    return True\n\ndef _validate_logging_settings(logging_config: dict) -> bool:\n    if 'level' not in logging_config or logging_config['level'] not in ['DEBUG', 'INFO', 'WARNING', 'ERROR']:\n        print(\"Error: Logging level invalid.\")\n        return False\n    return True\n\ndef validate_application_config(config: dict) -> bool:\n    if 'app_name' not in config or not isinstance(config['app_name'], str):\n        print(\"Error: Application name missing.\")\n        return False\n\n    if 'database' in config:\n        if 'type' not in config['database'] or config['database']['type'] not in ['sqlite', 'postgres']:\n            print(\"Error: Database type invalid.\")\n            return False\n        if config['database']['type'] == 'postgres':\n            if 'host' not in config['database']:\n                print(\"Error: Postgres host missing.\")\n                return False\n            # More specific Postgres validations could go here\n\n    if 'network' in config:\n        if not _validate_network_settings(config['network']): # Delegating nesting\n            return False\n\n    if 'logging' in config:\n        if not _validate_logging_settings(config['logging']): # Delegating nesting\n            return False\n\n    return True\n\n# Usage:\n# config_valid = validate_application_config({'app_name': 'Myapp', 'database': {'type': 'postgres', 'host': 'localhost'}})\n# print(f\"Config valid: {config_valid}\")\n```\nBy extracting nested validation logic into separate helper functions (`_validate_network_settings`, `_validate_logging_settings`), the `validate_application_config` function's nesting level is kept shallow, improving readability and maintainability."
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "oop-abstraction",
+    "title": "Design with Abstraction (OOP)",
+    "description": "Design object-oriented code emphasizing abstraction: separating 'what' from 'how' by focusing on high-level ideas and hiding unnecessary details from the client through clear contracts.",
+    "category": "development",
+    "tags": ["OOP", "abstraction", "design principles"],
+    "prompt": "Design a set of Java interfaces and classes for [SYSTEM COMPONENT] that demonstrate strong abstraction. Show how high-level functionalities are exposed through interfaces, while implementation details are hidden within concrete classes.",
+    "examples": [
+      {
+        "input": "A logging system that allows logging to various destinations (console, file, database).",
+        "output": "```java\n// Abstraction: What logging means\npublic interface Logger {\n    void log(String message);\n    void logError(String message);\n}\n\n// Concrete Implementations: How logging is done (hidden details)\npublic class ConsoleLogger implements Logger {\n    @Override\n    public void log(String message) { System.out.println(\"LOG: \" + message); }\n    @Override\n    public void logError(String message) { System.err.println(\"ERROR: \" + message); }\n}\n\npublic class FileLogger implements Logger {\n    private String filePath;\n    public FileLogger(String filePath) { this.filePath = filePath; }\n    @Override\n    public void log(String message) { /* writes to file */ System.out.println(\"Writing to file: \" + message); }\n    @Override\n    public void logError(String message) { /* writes error to file */ System.err.println(\"Writing error to file: \" + message); }\n}\n\n// Client uses abstraction:\npublic class Application {\n    private Logger logger;\n\n    public Application(Logger logger) {\n        this.logger = logger;\n    }\n\n    public void doSomething() {\n        logger.log(\"Doing something important.\");\n        try { /* ... */ } catch (Exception e) { logger.logError(\"An error occurred: \" + e.getMessage()); }\n    }\n}\n```\nClients interact only with the `Logger` interface, unaware of the specific logging implementation details."
+      },
+      {
+        "input": "Python system for different data storage mechanisms (e.g., local file, cloud storage, database).",
+        "output": "```python\n# Python - Abstraction for Data Storage\n\nfrom abc import ABC, abstractmethod\n\n# Abstraction: What data storage means\nclass DataStorage(ABC):\n    @abstractmethod\n    def save(self, data: str, key: str) -> None:\n        pass\n\n    @abstractmethod\n    def load(self, key: str) -> str:\n        pass\n\n# Concrete Implementations: How data is stored (hidden details)\nclass FileStorage(DataStorage):\n    def __init__(self, base_path: str):\n        self.base_path = base_path\n\n    def save(self, data: str, key: str) -> None:\n        file_path = f\"{self.base_path}/{key}.txt\"\n        with open(file_path, 'w') as f:\n            f.write(data)\n        print(f\"Saved data to local file: {file_path}\")\n\n    def load(self, key: str) -> str:\n        file_path = f\"{self.base_path}/{key}.txt\"\n        with open(file_path, 'r') as f:\n            data = f.read()\n        print(f\"Loaded data from local file: {file_path}\")\n        return data\n\nclass CloudStorage(DataStorage):\n    def __init__(self, bucket_name: str):\n        self.bucket_name = bucket_name\n\n    def save(self, data: str, key: str) -> None:\n        # Simulate cloud API call\n        print(f\"Saved data to cloud bucket '{self.bucket_name}' with key '{key}'\")\n\n    def load(self, key: str) -> str:\n        # Simulate cloud API call\n        print(f\"Loaded data from cloud bucket '{self.bucket_name}' with key '{key}'\")\n        return f\"Cloud data for {key}\"\n\n# Client uses abstraction\nclass DataManager:\n    def __init__(self, storage: DataStorage):\n        self.storage = storage\n\n    def store_user_data(self, user_id: str, user_data: dict) -> None:\n        self.storage.save(str(user_data), f\"user_{user_id}\")\n\n    def retrieve_user_data(self, user_id: str) -> str:\n        return self.storage.load(f\"user_{user_id}\")\n\n# Usage:\n# file_manager = DataManager(FileStorage(\"./data\"))\n# file_manager.store_user_data(\"alice\", {\"name\": \"Alice\"})\n# print(file_manager.retrieve_user_data(\"alice\"))\n\n# cloud_manager = DataManager(CloudStorage(\"my-app-bucket\"))\n# cloud_manager.store_user_data(\"bob\", {\"name\": \"Bob\"})\n# print(cloud_manager.retrieve_user_data(\"bob\"))\n```\n`DataManager` interacts with the `DataStorage` abstraction, isolating it from the concrete storage mechanisms."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "oop-encapsulation",
+    "title": "Implement Strong Encapsulation (OOP)",
+    "description": "Generate object-oriented code that bundles data and methods within a single unit (the object) and restricts direct access to internal components, isolating parts of an application.",
+    "category": "development",
+    "tags": ["OOP", "encapsulation", "data hiding"],
+    "prompt": "Implement a Python class for [ENTITY] demonstrating strong encapsulation. Ensure data members are private and access/modification occurs only through public methods (getters/setters if necessary, but prefer method behavior over raw data access).",
+    "examples": [
+      {
+        "input": "A `BankAccount` class where the balance can be directly modified.",
+        "output": "Problematic (poor encapsulation):\n```python\nclass BadBankAccount:\n    def __init__(self, initial_balance):\n        self.balance = initial_balance # Direct access\n\nbank_account = BadBankAccount(100)\nbank_account.balance = -50 # Balance can be set directly to an invalid state\n```\n\nImproved with encapsulation:\n```python\nclass BankAccount:\n    def __init__(self, initial_balance: float):\n        if initial_balance < 0:\n            raise ValueError(\"Initial balance cannot be negative.\")\n        self._balance = initial_balance # Private attribute\n\n    def deposit(self, amount: float):\n        if amount < 0:\n            raise ValueError(\"Deposit amount cannot be negative.\")\n        self._balance += amount\n\n    def withdraw(self, amount: float):\n        if amount < 0:\n            raise ValueError(\"Withdrawal amount cannot be negative.\")\n        if self._balance - amount < 0:\n            raise ValueError(\"Insufficient funds.\")\n        self._balance -= amount\n\n    def get_balance(self) -> float:\n        return self._balance\n\naccount = BankAccount(100)\n# account._balance = -50 # This is discouraged and harder to do\naccount.deposit(50)\naccount.withdraw(30)\nprint(account.get_balance())\n```\nThe `_balance` attribute is protected, and interactions are managed through `deposit`, `withdraw`, and `get_balance` methods, ensuring data integrity."
+      },
+      {
+        "input": "TypeScript class for a `Product` with properties like `price` and `stock`, ensuring they cannot be directly set to invalid values.",
+        "output": "```typescript\n// TypeScript - Encapsulation for Product\nclass Product {\n  private _name: string;\n  private _price: number;\n  private _stock: number;\n\n  constructor(name: string, price: number, stock: number) {\n    this._name = name;\n    this.setPrice(price);   // Use setter for initial validation\n    this.setStock(stock);   // Use setter for initial validation\n  }\n\n  public getName(): string {\n    return this._name;\n  }\n\n  public getPrice(): number {\n    return this._price;\n  }\n\n  public setPrice(newPrice: number): void {\n    if (newPrice <= 0) {\n      throw new Error(\"Price must be positive.\");\n    }\n    this._price = newPrice;\n  }\n\n  public getStock(): number {\n    return this._stock;\n  }\n\n  public setStock(newStock: number): void {\n    if (newStock < 0) {\n      throw new Error(\"Stock cannot be negative.\");\n    }\n    this._stock = newStock;\n  }\n\n  public sell(quantity: number): void {\n    if (quantity <= 0) {\n      throw new Error(\"Quantity to sell must be positive.\");\n    }\n    if (this._stock < quantity) {\n      throw new Error(\"Not enough stock to sell.\");\n    }\n    this._stock -= quantity;\n    console.log(`${quantity} units of ${this._name} sold. Remaining stock: ${this._stock}`);\n  }\n}\n\n// Usage:\n// const laptop = new Product('Laptop Pro', 1200, 50);\n// console.log(laptop.getPrice()); // 1200\n// laptop.sell(5); // 5 units of Laptop Pro sold. Remaining stock: 45\n// try { laptop.setPrice(-100); } catch (e: any) { console.error(e.message); } // Price must be positive.\n```\nPrivate properties (`_name`, `_price`, `_stock`) are accessed and modified only through public methods (`getName`, `setPrice`, `sell`, etc.), which include validation logic, ensuring the object's internal state remains valid."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "oop-meaningful-names-camelcase",
+    "title": "Use Meaningful CamelCase Names in OOP",
+    "description": "Generate object-oriented code using consistent, descriptive names for classes, methods, and variables, typically in CamelCase. Class names should start with an uppercase letter.",
+    "category": "development",
+    "tags": ["OOP", "naming conventions", "readability"],
+    "prompt": "Generate a Java class and its methods for [FUNCTIONALITY] adhering to OOP naming conventions. Use CamelCase for method and variable names, and ensure the class name starts with an uppercase letter.",
+    "examples": [
+      {
+        "input": "A class for managing user profiles, with methods to set user age, get user name, and store user preferences.",
+        "output": "```java\npublic class UserProfileManager {\n    private String userName;\n    private int userAge;\n    private Map<String, String> userPreferences;\n\n    public UserProfileManager(String name, int age) {\n        this.userName = name;\n        this.userAge = age;\n        this.userPreferences = new HashMap<>();\n    }\n\n    public String getUserName() {\n        return this.userName;\n    }\n\n    public void setUserAge(int newAge) {\n        if (newAge > 0) {\n            this.userAge = newAge;\n        }\n    }\n\n    public void storeUserPreference(String key, String value) {\n        this.userPreferences.put(key, value);\n    }\n\n    public String getUserPreference(String key) {\n        return this.userPreferences.get(key);\n    }\n}\n```"
+      },
+      {
+        "input": "TypeScript class for a `ShoppingCart` with methods to add items, remove items, and calculate total price.",
+        "output": "```typescript\n// TypeScript - OOP Naming Conventions\ninterface CartItem {\n  productId: string;\n  productName: string;\n  quantity: number;\n  unitPrice: number;\n}\n\nclass ShoppingCart {\n  private items: CartItem[]; // private field, camelCase\n  private readonly MAX_ITEMS_IN_CART = 100; // Constant, ALL_CAPS_SNAKE_CASE\n\n  constructor() {\n    this.items = [];\n  }\n\n  // Method name: camelCase, verb-noun\n  public addItemToCart(productId: string, productName: string, quantity: number, unitPrice: number): void {\n    if (this.items.length >= this.MAX_ITEMS_IN_CART) {\n      console.warn(\"Cannot add more items, cart is full.\");\n      return;\n    }\n    const existingItem = this.items.find(item => item.productId === productId);\n    if (existingItem) {\n      existingItem.quantity += quantity;\n    } else {\n      this.items.push({ productId, productName, quantity, unitPrice });\n    }\n    console.log(`${quantity} of ${productName} added to cart.`);\n  }\n\n  // Method name: camelCase, verb-noun\n  public removeItemFromCart(productId: string): void {\n    this.items = this.items.filter(item => item.productId !== productId);\n    console.log(`Item with ID ${productId} removed.`);\n  }\n\n  // Method name: camelCase, verb-noun\n  public calculateTotalPrice(): number {\n    let totalPrice = 0;\n    for (const item of this.items) {\n      totalPrice += item.quantity * item.unitPrice;\n    }\n    return totalPrice;\n  }\n\n  // Getter method: camelCase, getNoun\n  public getCartItems(): CartItem[] {\n    return [...this.items]; // Return a copy to prevent external modification\n  }\n}\n\n// Usage:\n// const myCart = new ShoppingCart(); // Class name: PascalCase\n// myCart.addItemToCart('PROD001', 'Bluetooth Speaker', 1, 50.00);\n// myCart.addItemToCart('PROD002', 'USB Cable', 2, 5.00);\n// console.log(`Total: $${myCart.calculateTotalPrice()}`); // Total: $60\n```\nAll class, method, and variable names follow standard TypeScript/JavaScript OOP camelCase conventions, enhancing readability and consistency."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "oop-fewer-arguments",
+    "title": "Design Methods with Minimal Arguments (OOP)",
+    "description": "Design object-oriented methods with a minimal number of arguments, leveraging object properties within the class instead. Avoid methods with too many arguments as they are hard to read.",
+    "category": "development",
+    "tags": ["OOP", "method design", "readability"],
+    "prompt": "Design a C# method for [ACTION] within an existing class context. Ensure the method takes a minimal number of arguments by utilizing properties already available within the class, rather than passing them redundantly.",
+    "examples": [
+      {
+        "input": "A `OrderProcessor` class has `orderId`, `customerId`, `orderAmount` as properties. A method `processOrder` takes all these as arguments.",
+        "output": "Problematic (too many arguments):\n```csharp\npublic class OrderProcessor {\n    public void ProcessOrder(string orderId, string customerId, decimal orderAmount, List<Item> items) {\n        // ... processing logic using all arguments\n    }\n}\n```\n\nImproved (fewer arguments, leverage class properties):\n```csharp\npublic class Order {\n    public string OrderId { get; set; }\n    public string CustomerId { get; set; }\n    public decimal OrderAmount { get; set; }\n    public List<Item> Items { get; set; }\n}\n\npublic class OrderProcessor {\n    public void ProcessOrder(Order order) {\n        // Access order.OrderId, order.CustomerId, etc. directly from the Order object\n        Console.WriteLine($\"Processing order {order.OrderId} for customer {order.CustomerId} with amount {order.OrderAmount}\");\n        // ... processing logic\n    }\n}\n\n// Usage:\nOrder myOrder = new Order { OrderId = \"123\", CustomerId = \"C001\", OrderAmount = 99.99m, Items = new List<Item>() };\nOrderProcessor processor = new OrderProcessor();\nprocessor.ProcessOrder(myOrder);\n```\nBy passing an `Order` object instead of individual properties, the method signature is cleaner and more readable."
+      },
+      {
+        "input": "Python `ReportGenerator` class with properties `report_title`, `data_source`, `output_format`. A method `generate_report` takes all these as arguments.",
+        "output": "```python\n# Python - Fewer Arguments in OOP\nclass ReportGenerator:\n    def __init__(self, report_title: str, data_source: list, output_format: str = 'pdf'):\n        self.report_title = report_title\n        self.data_source = data_source\n        self.output_format = output_format\n\n    def _format_report_data(self) -> str:\n        # Internal method to format data based on self.data_source\n        formatted = f\"Report Title: {self.report_title}\\n\"\n        for item in self.data_source:\n            formatted += f\"  - {item}\\n\"\n        return formatted\n\n    def _export_report(self, formatted_data: str) -> None:\n        # Internal method to export based on self.output_format\n        file_name = f\"{self.report_title.replace(' ', '_').lower()}.{self.output_format}\"\n        with open(file_name, 'w') as f:\n            f.write(formatted_data)\n        print(f\"Report exported to {file_name}\")\n\n    def generate_report(self) -> None: # No arguments needed, uses class properties\n        print(f\"Generating report: '{self.report_title}'\")\n        formatted_data = self._format_report_data()\n        self._export_report(formatted_data)\n        print(\"Report generation complete.\")\n\n# Usage:\n# my_data = [\"Item A\", \"Item B\", \"Item C\"]\n# generator = ReportGenerator(\"Monthly Sales\", my_data, \"txt\")\n# generator.generate_report()\n```\nThe `generate_report` method now takes no arguments, relying entirely on the `ReportGenerator` instance's properties, making its call site cleaner and the method's responsibility clearer."
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "oop-avoid-statics-wisely",
+    "title": "Avoid Static Methods (with Consideration) in OOP",
+    "description": "Generate object-oriented code that minimizes the use of static methods, as they can hinder testability and object-oriented design principles. Provide alternatives where appropriate.",
+    "category": "development",
+    "tags": ["OOP", "static methods", "testability"],
+    "prompt": "Review the following Java utility class that primarily uses static methods for [FUNCTIONALITY]. Refactor it to reduce reliance on static methods, promoting object-oriented design and improved testability.",
+    "examples": [
+      {
+        "input": "```java\npublic class MathUtils {\n    public static int add(int a, int b) { return a + b; }\n    public static int subtract(int a, int b) { return a - b; }\n}\n```",
+        "output": "Problematic (static utility class):\n```java\npublic class MathUtils {\n    public static int add(int a, int b) { return a + b; }\n    public static int subtract(int a, int b) { return a - b; }\n}\n// Usage: int sum = MathUtils.add(5, 3);\n```\n\nImproved (instance-based, promoting testability and flexibility):\n```java\npublic interface ICalculator {\n    int add(int a, int b);\n    int subtract(int a, int b);\n}\n\npublic class BasicCalculator implements ICalculator {\n    @Override\n    public int add(int a, int b) { return a + b; }\n\n    @Override\n    public int subtract(int a, int b) { return a - b; }\n}\n\n// Usage (can be injected for testing):\n// ICalculator calculator = new BasicCalculator();\n// int sum = calculator.add(5, 3);\n```\nWhile simple math operations might seem harmless as static, for more complex logic or external dependencies, instance methods allow for easier mocking and testing."
+      },
+      {
+        "input": "Python utility functions for string manipulation (e.g., `format_currency`, `truncate_text`).",
+        "output": "```python\n# Python - Refactoring static-like functions to instance methods (when appropriate)\n\n# Problematic (static-like utility functions):\nclass StringUtils:\n    @staticmethod\n    def format_currency(amount: float, currency_symbol: str = '$') -> str:\n        return f\"{currency_symbol}{amount:,.2f}\"\n\n    @staticmethod\n    def truncate_text(text: str, max_length: int) -> str:\n        return text[:max_length] + ('...' if len(text) > max_length else '')\n\n# Usage:\n# formatted = StringUtils.format_currency(1234.56)\n# truncated = StringUtils.truncate_text(\"Long sentence here\", 10)\n```\n\n```python\n# Improved (if string manipulation becomes more context-dependent/stateful,\n#           or requires configuration/dependency injection)\n# For simple, stateless utility functions, statics might be acceptable.\n# However, if there's a need for configuration (e.g., default currency, truncation behavior),\n# then instance-based approach is better.\n\nclass TextFormatter:\n    def __init__(self, default_currency_symbol: str = '$', default_truncate_length: int = 50):\n        self.default_currency_symbol = default_currency_symbol\n        self.default_truncate_length = default_truncate_length\n\n    def format_currency(self, amount: float, currency_symbol: str | None = None) -> str:\n        symbol = currency_symbol if currency_symbol is not None else self.default_currency_symbol\n        return f\"{symbol}{amount:,.2f}\"\n\n    def truncate_text(self, text: str, max_length: int | None = None) -> str:\n        length = max_length if max_length is not None else self.default_truncate_length\n        return text[:length] + ('...' if len(text) > length else '')\n\n# Usage:\n# default_formatter = TextFormatter()\n# print(default_formatter.format_currency(123.45))\n# print(default_formatter.truncate_text(\"This is a very long text that should be truncated.\"))\n\n# euro_formatter = TextFormatter(default_currency_symbol='€', default_truncate_length=20)\n# print(euro_formatter.format_currency(99.99))\n# print(euro_formatter.truncate_text(\"Another very long sentence.\"))\n```\nThis refactoring moves from purely static methods to instance methods, which allows for configuration and dependency injection (e.g., different default currency symbols or truncation lengths), making the `TextFormatter` more flexible and testable if these 'utilities' grow in complexity or need contextual behavior."
+      }
+    ],
+    "effectiveness": 3,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "oop-reduce-conditional-statements",
+    "title": "Reduce Conditional Statements in OOP (Polymorphism)",
+    "description": "Generate object-oriented code that minimizes excessive `if/else` ladders, favoring behavioral polymorphism (Strategy or Factory patterns) to reduce complexity and improve reusability.",
+    "category": "development",
+    "tags": ["OOP", "polymorphism", "design patterns", "complexity"],
+    "prompt": "Refactor the following Java code, which uses a large `switch` or `if/else if` statement to handle different types of [ENTITY/ACTION], to use a more object-oriented approach, likely leveraging the Strategy or Factory pattern to reduce conditional logic.",
+    "examples": [
+      {
+        "input": "```java\npublic class PaymentProcessor {\n    public void processPayment(String type, double amount) {\n        if (type.equals(\"CreditCard\")) {\n            // Credit card processing\n        } else if (type.equals(\"PayPal\")) {\n            // PayPal processing\n        } else if (type.equals(\"BankTransfer\")) {\n            // Bank transfer processing\n        }\n    }\n}\n```",
+        "output": "Problematic (excessive conditionals):\n```java\npublic class PaymentProcessor {\n    public void processPayment(String type, double amount) {\n        if (type.equals(\"CreditCard\")) {\n            // Credit card processing\n        } else if (type.equals(\"PayPal\")) {\n            // PayPal processing\n        } else if (type.equals(\"BankTransfer\")) {\n            // Bank transfer processing\n        }\n    }\n}\n```\n\nImproved (using Strategy Pattern):\n```java\npublic interface PaymentStrategy {\n    void pay(double amount);\n}\n\npublic class CreditCardPayment implements PaymentStrategy {\n    @Override\n    public void pay(double amount) { System.out.println(\"Paying \" + amount + \" via Credit Card.\"); }\n}\n\npublic class PayPalPayment implements PaymentStrategy {\n    @Override\n    public void pay(double amount) { System.out.println(\"Paying \" + amount + \" via PayPal.\"); }\n}\n\npublic class BankTransferPayment implements PaymentStrategy {\n    @Override\n    public void pay(double amount) { System.out.println(\"Paying \" + amount + \" via Bank Transfer.\"); }\n}\n\npublic class ContextPaymentProcessor {\n    private PaymentStrategy paymentStrategy;\n\n    public void setPaymentStrategy(PaymentStrategy strategy) {\n        this.paymentStrategy = strategy;\n    }\n\n    public void executePayment(double amount) {\n        this.paymentStrategy.pay(amount);\n    }\n}\n\n// Usage:\n// ContextPaymentProcessor processor = new ContextPaymentProcessor();\n// processor.setPaymentStrategy(new CreditCardPayment());\n// processor.executePayment(100.0);\n```\nThis refactoring replaces conditional logic with polymorphic behavior, making the system more extensible and easier to maintain."
+      },
+      {
+        "input": "TypeScript React component that renders different UI elements based on an `itemType` prop (e.g., 'text', 'image', 'video').",
+        "output": "```tsx\n// React Component (TypeScript) - Reducing Conditionals with Polymorphism\nimport React from 'react';\n\n// Base interface for renderable items\ninterface RenderableItemProps {\n  id: string;\n}\n\n// Specific interfaces for different item types\ninterface TextItemProps extends RenderableItemProps {\n  type: 'text';\n  content: string;\n}\n\ninterface ImageItemProps extends RenderableItemProps {\n  type: 'image';\n  url: string;\n  alt: string;\n}\n\ninterface VideoItemProps extends RenderableItemProps {\n  type: 'video';\n  src: string;\n  title: string;\n}\n\n// Polymorphic rendering components (Strategy pattern implicitly applied)\nconst TextRenderer: React.FC<TextItemProps> = ({ content }) => (\n  <p>{content}</p>\n);\n\nconst ImageRenderer: React.FC<ImageItemProps> = ({ url, alt }) => (\n  <img src={url} alt={alt} style={{ maxWidth: '100%' }} />\n);\n\nconst VideoRenderer: React.FC<VideoItemProps> = ({ src, title }) => (\n  <div>\n    <h4>{title}</h4>\n    <video src={src} controls style={{ maxWidth: '100%' }} />\n  </div>\n);\n\n// Central component that dispatches rendering based on type\ntype Item = TextItemProps | ImageItemProps | VideoItemProps;\n\ninterface ItemDisplayProps {\n  item: Item;\n}\n\nconst ItemDisplay: React.FC<ItemDisplayProps> = ({ item }) => {\n  switch (item.type) {\n    case 'text':\n      return <TextRenderer {...item} />;\n    case 'image':\n      return <ImageRenderer {...item} />;\n    case 'video':\n      return <VideoRenderer {...item} />;\n    default:\n      // Ensure exhaustive checking or a default fallback\n      const _exhaustiveCheck: never = item;\n      return null; \n  }\n};\n\nexport default ItemDisplay;\n\n// Usage:\n// <ItemDisplay item={{ id: '1', type: 'text', content: 'Hello World' }} />\n// <ItemDisplay item={{ id: '2', type: 'image', url: '[https://example.com/image.jpg](https://example.com/image.jpg)', alt: 'Example Image' }} />\n// <ItemDisplay item={{ id: '3', type: 'video', src: '[https://example.com/video.mp4](https://example.com/video.mp4)', title: 'Demo Video' }} />\n```\nWhile a `switch` statement is still present, the actual rendering logic is delegated to specialized components. This makes `ItemDisplay` extensible: to add a new item type, you'd create a new renderer component and add a new case to the `switch`, but the core structure remains clean, effectively using polymorphism."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "declarative-prioritize-readability",
+    "title": "Prioritize Readability in Declarative Code",
+    "description": "Generate declarative code that is highly readable and expressive, focusing on describing the desired outcome rather than the explicit steps.",
+    "category": "development",
+    "tags": ["declarative programming", "readability", "simplicity"],
+    "prompt": "Generate a CSS snippet for [UI ELEMENT STYLE] that is highly readable and expresses its intent clearly, consistent with declarative programming principles. Focus on what the style should be, not how the browser should render it step-by-step.",
+    "examples": [
+      {
+        "input": "Styling for a button: red background, white text, rounded corners, and a shadow.",
+        "output": "```css\n.my-button {\n    background-color: #FF0000; /* What: Red background */\n    color: #FFFFFF; /* What: White text */\n    border-radius: 8px; /* What: Rounded corners */\n    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* What: A subtle shadow */\n    padding: 10px 20px;\n    font-size: 16px;\n    text-align: center;\n    cursor: pointer;\n}\n```\nThis CSS declares the desired visual properties of the button, making it highly readable and declarative."
+      },
+      {
+        "input": "React component for rendering a list of items dynamically.",
+        "output": "```jsx\n// React Component (Declarative rendering)\nimport React from 'react';\n\ninterface Item {\n  id: string;\n  name: string;\n}\n\ninterface ItemListProps {\n  items: Item[];\n  listTitle: string;\n}\n\nconst ItemList: React.FC<ItemListProps> = ({ items, listTitle }) => {\n  return (\n    <div>\n      <h2>{listTitle}</h2>\n      {items.length > 0 ? (\n        <ul>\n          {items.map(item => (\n            <li key={item.id}>{item.name}</li>\n          ))}\n        </ul>\n      ) : (\n        <p>No items to display.</p>\n      )}\n    </div>\n  );\n};\n\nexport default ItemList;\n\n// Usage:\n// const products = [{ id: '1', name: 'Laptop' }, { id: '2', name: 'Mouse' }];\n// <ItemList items={products} listTitle=\"Available Products\" />\n// <ItemList items={[]} listTitle=\"Empty List\" />\n```\nThis React component declaratively describes *what* the UI should look like based on the `items` prop, rather than imperatively detailing step-by-step how to manipulate the DOM to create the list."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "declarative-focus-data-relations",
+    "title": "Focus on Data Relationships in Declarative Code",
+    "description": "Generate declarative code that emphasizes the declaration of relationships between different pieces of data.",
+    "category": "development",
+    "tags": ["declarative programming", "data relationships", "SQL"],
+    "prompt": "Generate a SQL query to retrieve [SPECIFIC DATA] from a database. Focus on declaring the relationships and conditions between tables and columns to achieve the desired result, rather than specifying the execution steps.",
+    "examples": [
+      {
+        "input": "Retrieve the names of all customers who have placed an order for 'Product X' in the last month.",
+        "output": "```sql\nSELECT DISTINCT C.customer_name\nFROM Customers C\nJOIN Orders O ON C.customer_id = O.customer_id\nJOIN Order_Items OI ON O.order_id = OI.order_id\nJOIN Products P ON OI.product_id = P.product_id\nWHERE P.product_name = 'Product X'\n  AND O.order_date >= DATE('now', '-1 month');\n```\nThis SQL query declaratively describes the desired data relationships (joins) and conditions (WHERE clauses) to retrieve the information."
+      },
+      {
+        "input": "Define a Vue.js computed property that derives a `fullName` from `firstName` and `lastName` and a `hasTasks` boolean based on a `tasks` array.",
+        "output": "```vue\n\n<template>\n  <div>\n    <p>Full Name: {{ fullName }}</p>\n    <p v-if=\"hasTasks\">You have tasks to complete!</p>\n    <p v-else>No tasks for today.</p>\n  </div>\n</template>\n\n<script lang=\"ts\">\nimport { defineComponent } from 'vue';\n\ninterface Task {\n  id: number;\n  description: string;\n  completed: boolean;\n}\n\nexport default defineComponent({\n  data() {\n    return {\n      firstName: 'Jane',\n      lastName: 'Doe',\n      tasks: [\n        { id: 1, description: 'Buy groceries', completed: false },\n        { id: 2, description: 'Walk the dog', completed: true }\n      ] as Task[]\n    };\n  },\n  computed: {\n    // Declaratively defines how fullName is derived from firstName and lastName\n    fullName(): string {\n      return `${this.firstName} ${this.lastName}`;\n    },\n    // Declaratively defines whether there are any tasks\n    hasTasks(): boolean {\n      return this.tasks.length > 0;\n    }\n  }\n});\n</script>\n```\nVue's computed properties declaratively describe how `fullName` and `hasTasks` relate to the raw data (`firstName`, `lastName`, `tasks`), letting Vue handle the reactivity and updates implicitly."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "functional-pure-functions-immutability",
+    "title": "Generate Code with Pure Functions and Immutability (FP)",
+    "description": "Generate functional code that uses pure functions (same input, same output, no side effects) and immutable data structures. This promotes predictability, easier testing, and parallelizability.",
+    "category": "development",
+    "tags": [
+      "functional programming",
+      "pure functions",
+      "immutability",
+      "predictability",
+      "testability"
+    ],
+    "prompt": "Generate a Python function for [TRANSFORMATION TASK] that is a pure function and operates on immutable data. Explain why it adheres to these principles.",
+    "examples": [
+      {
+        "input": "A function to increment all numbers in a list by a given value.",
+        "output": "```python\ndef increment_list_elements(numbers: list[int], increment_by: int) -> list[int]:\n    \"\"\"Increments each number in a list by a given value.\n    This is a pure function because:\n    1. Given the same `numbers` list and `increment_by`, it will always produce the same output.\n    2. It does not modify the input `numbers` list (immutability); instead, it returns a new list.\n    3. It has no side effects (e.g., modifying global state, performing I/O).\n    \"\"\"\n    return [num + increment_by for num in numbers]\n\nmy_list = [1, 2, 3]\nnew_list = increment_list_elements(my_list, 10)\nprint(my_list) # Output: [1, 2, 3] (original list unchanged)\nprint(new_list) # Output: [11, 12, 13] (new list with incremented values)\n```\nThis function is pure and operates on immutable data, as it creates a new list rather than modifying the original."
+      },
+      {
+        "input": "TypeScript function to remove a specific item from an array without mutating the original array.",
+        "output": "```typescript\n// TypeScript - Pure Function with Immutability\ninterface Item {\n  id: string;\n  name: string;\n}\n\nfunction removeItemFromArray(items: Item[], itemIdToRemove: string): Item[] {\n  /**\n   * Removes an item from an array by its ID, returning a new array.\n   * This is a pure function because:\n   * 1. It always produces the same output for the same inputs.\n   * 2. It does not modify the original `items` array (immutability);\n   * it uses `filter` to create a new array.\n   * 3. It has no side effects.\n   */\n  return items.filter(item => item.id !== itemIdToRemove);\n}\n\n// Usage:\n// const originalItems: Item[] = [\n//   { id: 'a', name: 'Apple' },\n//   { id: 'b', name: 'Banana' },\n//   { id: 'c', name: 'Cherry' }\n// ];\n// const updatedItems = removeItemFromArray(originalItems, 'b');\n\n// console.log(originalItems); // Original array remains unchanged\n// console.log(updatedItems);  // New array without 'Banana'\n```\nThis function uses the array's `filter` method, which returns a *new* array, ensuring the original array is not mutated. This makes `removeItemFromArray` a pure function, enhancing predictability and testability."
+      },
+      {
+        "input": "React state update for an array of tasks, ensuring immutability.",
+        "output": "```jsx\n// React (TypeScript) - Immutable State Updates\nimport React, { useState } from 'react';\n\ninterface Task {\n  id: string;\n  text: string;\n  completed: boolean;\n}\n\nconst TaskList: React.FC = () => {\n  const [tasks, setTasks] = useState<Task[]>([\n    { id: '1', text: 'Learn React', completed: false },\n    { id: '2', text: 'Build a project', completed: false }\n  ]);\n\n  // Pure function for toggling task completion without mutating original task object/array\n  const toggleTaskCompletion = (taskId: string) => {\n    setTasks(prevTasks =>\n      prevTasks.map(task =>\n        task.id === taskId ? { ...task, completed: !task.completed } : task\n      )\n    );\n  };\n\n  // Pure function for adding a new task without mutating original array\n  const addTask = (taskText: string) => {\n    const newTask: Task = {\n      id: String(Date.now()), // Simple unique ID\n      text: taskText,\n      completed: false\n    };\n    setTasks(prevTasks => [...prevTasks, newTask]);\n  };\n\n  return (\n    <div>\n      <h2>My Tasks</h2>\n      <input type=\"text\" onKeyDown={(e) => { if (e.key === 'Enter') { addTask(e.currentTarget.value); e.currentTarget.value = ''; } }} placeholder=\"Add new task\" />\n      <ul>\n        {tasks.map(task => (\n          <li key={task.id} style={{ textDecoration: task.completed ? 'line-through' : 'none' }}>\n            <input\n              type=\"checkbox\"\n              checked={task.completed}\n              onChange={() => toggleTaskCompletion(task.id)}\n            />\n            {task.text}\n          </li>\n        ))}\n      </ul>\n    </div>\n  );\n};\n\nexport default TaskList;\n```\nReact state updates, especially for arrays and objects, heavily rely on immutability. The `toggleTaskCompletion` and `addTask` functions demonstrate this by using `map` and the spread operator (`...`) to return new arrays and objects, rather than directly modifying the `tasks` state."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "functional-higher-order-functions",
+    "title": "Utilize Higher-Order Functions (FP)",
+    "description": "Generate functional code that effectively uses higher-order functions (functions that take other functions as arguments or return them) like `map`, `filter`, and `reduce` for data transformations.",
+    "category": "development",
+    "tags": [
+      "functional programming",
+      "higher-order functions",
+      "data transformation"
+    ],
+    "prompt": "Generate a Python code snippet that uses higher-order functions (`map`, `filter`, `reduce`) to perform the following data transformations on a list of numbers: [DATA TRANSFORMATION SEQUENCE].",
+    "examples": [
+      {
+        "input": "Given a list of integers, first filter out odd numbers, then square the remaining even numbers, and finally sum them up.",
+        "output": "```python\nfrom functools import reduce\n\nnumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n\n# 1. Filter out odd numbers\neven_numbers = list(filter(lambda x: x % 2 == 0, numbers))\n# Result: [2, 4, 6, 8, 10]\n\n# 2. Square the remaining even numbers\nsquared_even_numbers = list(map(lambda x: x * x, even_numbers))\n# Result: [4, 16, 36, 64, 100]\n\n# 3. Sum them up\ntotal_sum = reduce(lambda x, y: x + y, squared_even_numbers)\n# Result: 220\n\nprint(f\"Original numbers: {numbers}\")\nprint(f\"Even numbers: {even_numbers}\")\nprint(f\"Squared even numbers: {squared_even_numbers}\")\nprint(f\"Total sum: {total_sum}\")\n```\nThis example demonstrates the effective use of `filter`, `map`, and `reduce` for a concise and declarative data transformation pipeline."
+      },
+      {
+        "input": "TypeScript array of objects, filter active users, then extract their full names, and finally sort them alphabetically.",
+        "output": "```typescript\n// TypeScript - Higher-Order Functions\ninterface User {\n  id: number;\n  firstName: string;\n  lastName: string;\n  isActive: boolean;\n}\n\nconst users: User[] = [\n  { id: 1, firstName: 'Alice', lastName: 'Smith', isActive: true },\n  { id: 2, firstName: 'Bob', lastName: 'Johnson', isActive: false },\n  { id: 3, firstName: 'Charlie', lastName: 'Brown', isActive: true },\n  { id: 4, firstName: 'David', lastName: 'Lee', isActive: true },\n];\n\n// 1. Filter active users\nconst activeUsers = users.filter(user => user.isActive);\n// Result: [ { id: 1, ...Alice }, { id: 3, ...Charlie }, { id: 4, ...David } ]\n\n// 2. Extract their full names\nconst fullNames = activeUsers.map(user => `${user.firstName} ${user.lastName}`);\n// Result: ['Alice Smith', 'Charlie Brown', 'David Lee']\n\n// 3. Sort them alphabetically\nconst sortedNames = fullNames.sort((a, b) => a.localeCompare(b));\n// Result: ['Alice Smith', 'Charlie Brown', 'David Lee']\n\nconsole.log(\"Active and sorted names:\", sortedNames);\n```\nThis example showcases the chainable nature of higher-order functions (`filter`, `map`, `sort`) in TypeScript/JavaScript to perform complex data transformations in a clear and functional style."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "software-architecture-separation-of-concerns",
+    "title": "Design with Separation of Concerns (Architecture)",
+    "description": "Design software architecture by separating concerns based on the type of work performed (e.g., business logic from UI/infrastructure logic), ensuring testability and loose coupling.",
+    "category": "development",
+    "tags": [
+      "software architecture",
+      "separation of concerns",
+      "modularity",
+      "loose coupling"
+    ],
+    "prompt": "Design the high-level architecture for a [APPLICATION TYPE] application, applying the principle of Separation of Concerns. Describe the distinct layers or modules and their primary responsibilities, ensuring business logic is isolated.",
+    "examples": [
+      {
+        "input": "A typical web application with a user interface, business operations, and data persistence.",
+        "output": "Layered Architecture with Separation of Concerns:\n\n1.  **Presentation Layer (UI):** Responsible for handling user interactions, displaying data, and translating user input into commands for the application layer. (e.g., Web UI, Mobile App UI)\n2.  **Application/Business Logic Layer:** Contains the core business rules and orchestrates interactions between other layers. This layer is independent of specific UI or database technologies. (e.g., Services, Use Cases)\n3.  **Persistence/Data Access Layer:** Responsible for interacting with the database or other data sources, handling CRUD operations. It exposes an abstract interface to the business logic layer. (e.g., Repositories, DAOs)\n4.  **Database Layer:** The actual database (e.g., SQL, NoSQL).\n\nThis separation ensures that changes in the UI or database don't directly impact the business logic, and vice-versa, promoting testability and maintainability."
+      },
+      {
+        "input": "A backend service for managing products, including API endpoints, business rules for product validation, and database operations.",
+        "output": "For a backend product management service, a good separation of concerns would involve:\n\n1.  **API Layer (Controllers/Routes):** Responsible for handling HTTP requests, parsing input, and returning HTTP responses. It orchestrates calls to the Application Layer but contains no business logic itself. (e.g., `product_controller.py`, `product_routes.ts`)\n2.  **Application Layer (Services/Use Cases):** Contains the core business logic. This layer processes business operations, orchestrates data flow, and applies domain rules. It depends on the Domain and Infrastructure layers. (e.g., `product_service.py`, `ProductManager.ts`)\n3.  **Domain Layer (Entities/Value Objects):** Defines the core business entities and their rules (e.g., `Product` class with validation methods for product name, price, etc.). It should be independent of other layers.\n4.  **Infrastructure/Persistence Layer (Repositories/DAOs):** Handles external concerns like database interactions, external API calls, or logging. It provides abstractions (interfaces/abstract classes) that the Application Layer depends on. (e.g., `product_repository.py`, `SqlProductRepository.ts`)\n\nThis design allows the business logic (Application Layer) to be tested independently of the API framework or the specific database technology."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "software-architecture-architectural-patterns",
+    "title": "Select and Apply Architectural Patterns",
+    "description": "Propose and explain the choice of a suitable architectural pattern (e.g., Layered, Event-Driven, Microservices) for a given software project scenario, outlining its benefits and considerations.",
+    "category": "development",
+    "tags": [
+      "software architecture",
+      "architectural patterns",
+      "system design"
+    ],
+    "prompt": "For a [SOFTWARE PROJECT TYPE/REQUIREMENTS], propose the most suitable architectural pattern from the following: Layered, Event-Driven, Microkernel, Microservices, Client-Server, Master-Slave. Justify your choice by explaining its benefits for the given context and any potential drawbacks.",
+    "examples": [
+      {
+        "input": "A highly scalable, decoupled e-commerce platform that needs to handle real-time order processing, inventory updates, and customer notifications.",
+        "output": "For a highly scalable, decoupled e-commerce platform with real-time needs, an **Event-Driven Architecture** would be most suitable.\n\n**Benefits:**\n* **Decoupling:** Components (e.g., Order Service, Inventory Service, Notification Service) are highly decoupled, communicating asynchronously via events. This allows independent development, deployment, and scaling of services.\n* **Responsiveness & Real-time Processing:** Events can be processed immediately, enabling real-time updates for inventory or notifications.\n* **Scalability:** Individual services can be scaled independently based on their load characteristics.\n* **Resilience:** Failures in one service are less likely to impact the entire system due to asynchronous communication and message queues.\n* **Agility:** New functionalities can be added by introducing new event consumers or producers without modifying existing services.\n\n**Considerations/Drawbacks:**\n* **Complexity:** Can be more complex to design, implement, and debug due to distributed nature and asynchronous flows.\n* **Eventual Consistency:** Data consistency across services might be eventual, which needs to be handled in the application design.\n* **Monitoring and Tracing:** Requires robust monitoring and tracing tools to understand end-to-end event flows.\n\nThis architecture's agility and high performance align well with the dynamic nature of an e-commerce platform requiring responsiveness."
+      },
+      {
+        "input": "A desktop application with a clear separation between UI, business logic, and data storage, where changes in one part should minimally affect others.",
+        "output": "For a desktop application with a clear separation between UI, business logic, and data storage, a **Layered Architecture** (also known as N-tier architecture) is highly suitable.\n\n**Workflow Description:**\nThis architecture organizes code into distinct, horizontally stacked layers, with each layer having a specific role and interacting only with the layers directly above and below it.\n\n* **Presentation Layer:** (e.g., C#/WPF, Python/Tkinter GUI) Responsible for displaying information to the user and handling user input. It interacts with the Business Logic Layer.\n* **Business Logic Layer:** (e.g., C# classes, Python modules) Contains the core business rules, operations, and application logic. It processes requests from the Presentation Layer and interacts with the Data Access Layer.\n* **Data Access Layer:** (e.g., C#/ADO.NET, Python/SQLAlchemy) Provides an abstraction over the data storage mechanism. It handles CRUD (Create, Read, Update, Delete) operations and maps data to/from business objects. It interacts with the Data Layer.\n* **Data Layer:** (e.g., SQL Server, SQLite database file) The actual physical data storage.\n\n**Benefits:**\n* **Separation of Concerns:** Each layer has a well-defined responsibility, making the system easier to understand, develop, and maintain.\n* **Testability:** Individual layers can be tested in isolation, especially the business logic, which can be tested independently of the UI or database.\n* **Maintainability & Modularity:** Changes within one layer (e.g., changing the database from SQL to NoSQL in the Data Access Layer) typically have minimal impact on other layers.\n* **Reusability:** Business logic can potentially be reused across different presentation layers (e.g., a desktop UI and a web UI sharing the same backend logic).\n\n**Considerations/Drawbacks:**\n* **Performance Overhead:** Each request might traverse multiple layers, potentially introducing minor performance overhead.\n* **Initial Complexity:** Setting up the layers and their interfaces can add initial development complexity compared to a monolithic approach.\n* **Vertical Slicing Challenges:** While layers separate concerns horizontally, implementing a single feature often requires touching all layers, which can sometimes be cumbersome.\n\nThis pattern provides a robust and well-understood structure for desktop applications, promoting order and reducing complexity in the long run."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "software-design-patterns",
+    "title": "Apply Software Design Patterns",
+    "description": "Identify a common software design problem in a given context and propose a relevant Gang of Four (GoF) design pattern (Creational, Structural, or Behavioral) as a solution, explaining its benefits.",
+    "category": "development",
+    "tags": ["design patterns", "GoF patterns", "problem solving"],
+    "prompt": "Given the following [CODE/DESIGN PROBLEM], identify a suitable software design pattern (Creational, Structural, or Behavioral) from the Gang of Four patterns to solve it. Describe the pattern, how it applies to this problem, and its benefits.",
+    "examples": [
+      {
+        "input": "A class `Logger` needs to ensure only one instance of itself exists throughout the application to manage logging resources efficiently.",
+        "output": "For ensuring only one instance of the `Logger` class exists, the **Singleton Pattern** (a Creational Pattern) is suitable.\n\n**Description:** The Singleton pattern ensures that a class has only one instance and provides a global point of access to that instance.\n\n**Application:**\n```java\npublic class Logger {\n    private static Logger instance;\n\n    private Logger() {\n        // Private constructor to prevent direct instantiation\n    }\n\n    public static Logger getInstance() {\n        if (instance == null) {\n            instance = new Logger();\n        }\n        return instance;\n    }\n\n    public void log(String message) {\n        System.out.println(\"Log: \" + message);\n    }\n}\n\n// Usage:\n// Logger logger1 = Logger.getInstance();\n// Logger logger2 = Logger.getInstance();\n// // logger1 and logger2 will refer to the same instance\n```\n**Benefits:**\n* **Controlled Access to Single Instance:** Ensures that only one instance of the logger is created, preventing resource conflicts or inconsistencies across the application.\n* **Reduced Resource Consumption:** Avoids creating multiple logger objects, saving memory and other system resources.\n* **Global Point of Access:** Provides a well-known, controlled access point to the single instance."
+      },
+      {
+        "input": "A TypeScript/React application needs to create different types of notifications (e.g., 'success', 'error', 'warning') and display them in a standardized way, without making the component that displays them dependent on the concrete implementation of each notification type.",
+        "output": "For creating different types of notifications and displaying them uniformly, the **Factory Method Pattern** (a Creational Pattern) is suitable, potentially combined with a **Strategy Pattern** (Behavioral) for rendering.\n\n**Description (Factory Method):** Defines an interface for creating an object, but lets subclasses alter the type of objects that will be created.\n\n**Application:**\n```typescript\n// TypeScript - Factory Method for Notifications\n\n// Product Interface\ninterface Notification {\n  type: 'success' | 'error' | 'warning';\n  message: string;\n  display(): void;\n}\n\n// Concrete Products\nclass SuccessNotification implements Notification {\n  type: 'success' = 'success';\n  constructor(public message: string) {}\n  display(): void { console.log(`SUCCESS: ${this.message}`); }\n}\n\nclass ErrorNotification implements Notification {\n  type: 'error' = 'error';\n  constructor(public message: string) {}\n  display(): void { console.error(`ERROR: ${this.message}`); }\n}\n\nclass WarningNotification implements Notification {\n  type: 'warning' = 'warning';\n  constructor(public message: string) {}\n  display(): void { console.warn(`WARNING: ${this.message}`); }\n}\n\n// Creator Interface (Factory Method)\ninterface NotificationFactory {\n  createNotification(message: string): Notification;\n}\n\n// Concrete Creators\nclass SuccessNotificationFactory implements NotificationFactory {\n  createNotification(message: string): Notification {\n    return new SuccessNotification(message);\n  }\n}\n\nclass ErrorNotificationFactory implements NotificationFactory {\n  createNotification(message: string): Notification {\n    return new ErrorNotification(message);\n  }\n}\n\n// Usage (Client code uses the factory, not concrete notification classes)\n// const successFactory = new SuccessNotificationFactory();\n// const errorFactory = new ErrorNotificationFactory();\n\n// const successNotify = successFactory.createNotification('Operation completed successfully.');\n// successNotify.display();\n\n// const errorNotify = errorFactory.createNotification('Data failed to load.');\n// errorNotify.display();\n\n\n// React Component (Displaying notifications - using the 'display' method implicitly)\nimport React from 'react';\n\ninterface NotificationDisplayProps {\n  notifications: Notification[];\n}\n\nconst NotificationDisplay: React.FC<NotificationDisplayProps> = ({ notifications }) => {\n  return (\n    <div className=\"notification-container\">\n      {notifications.map((notification, index) => (\n        <div key={index} className={`notification ${notification.type}`}>\n          {notification.message}\n          {/* The display() method could be called here or the message rendered directly */}\n        </div>\n      ))}\n    </div>\n  );\n};\n\nexport default NotificationDisplay;\n```\n**Benefits (Factory Method):**\n* **Decoupling:** The client code (where notifications are *used* or created via the factory) is decoupled from the concrete notification classes. It only depends on the `Notification` interface.\n* **Extensibility:** Adding new notification types (e.g., 'info' notification) only requires creating a new concrete `Notification` class and a corresponding `NotificationFactory`, without modifying existing client code.\n* **Centralized Creation Logic:** The responsibility for creating notification objects is moved to the factory, encapsulating the instantiation logic."
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "testing-unit-test-generation",
+    "title": "Generate Unit Tests for Code",
+    "description": "Generate unit tests for a given code snippet, ensuring they are fast, independent, repeatable, self-validating, and comprehensive.",
+    "category": "development",
+    "tags": ["testing", "unit testing", "quality assurance"],
+    "prompt": "Generate a set of comprehensive unit tests for the following Python function:\n```python\n[PYTHON_FUNCTION_CODE]\n```\nEnsure the tests cover positive cases, edge cases, and error handling where applicable, adhering to the principles of good unit testing (fast, independent, repeatable, self-validating).",
+    "examples": [
+      {
+        "input": "```python\ndef divide(a, b):\n    if b == 0:\n        raise ValueError(\"Cannot divide by zero\")\n    return a / b\n```",
+        "output": "```python\nimport pytest\n\ndef divide(a, b):\n    if b == 0:\n        raise ValueError(\"Cannot divide by zero\")\n    return a / b\n\ndef test_divide_positive_numbers():\n    assert divide(10, 2) == 5\n\ndef test_divide_negative_numbers():\n    assert divide(-10, 2) == -5\n    assert divide(10, -2) == -5\n    assert divide(-10, -2) == 5\n\ndef test_divide_by_one():\n    assert divide(7, 1) == 7\n\ndef test_divide_zero_by_number():\n    assert divide(0, 5) == 0\n\ndef test_divide_fractional_result():\n    assert divide(5, 2) == 2.5\n\ndef test_divide_by_zero_raises_error():\n    with pytest.raises(ValueError, match=\"Cannot divide by zero\"):\n        divide(10, 0)\n```"
+      },
+      {
+        "input": "```typescript\nfunction capitalizeFirstLetter(text: string): string {\n  if (!text) {\n    return '';\n  }\n  return text.charAt(0).toUpperCase() + text.slice(1);\n}\n```",
+        "output": "```typescript\n// Jest Unit Tests for TypeScript function\ndescribe('capitalizeFirstLetter', () => {\n  it('should capitalize the first letter of a word', () => {\n    expect(capitalizeFirstLetter('hello')).toBe('Hello');\n  });\n\n  it('should handle an empty string', () => {\n    expect(capitalizeFirstLetter('')).toBe('');\n  });\n\n  it('should handle a single letter string', () => {\n    expect(capitalizeFirstLetter('a')).toBe('A');\n  });\n\n  it('should handle a string that is already capitalized', () => {\n    expect(capitalizeFirstLetter('World')).toBe('World');\n  });\n\n  it('should handle strings with multiple words', () => {\n    expect(capitalizeFirstLetter('hello world')).toBe('Hello world');\n  });\n\n  it('should handle strings with leading spaces (though typical use case would trim first)', () => {\n    expect(capitalizeFirstLetter('  test')).toBe('  test'); // Behavior is to capitalize first *character*\n  });\n});\n```"
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "testing-proactive-test-strategy",
+    "title": "Propose Proactive Testing Strategy",
+    "description": "Based on a software design or feature description, propose a proactive, continuous, and integrated testing strategy, including relevant test types (unit, integration, functional, etc.) and automation considerations.",
+    "category": "development",
+    "tags": ["testing", "test strategy", "quality assurance", "automation"],
+    "prompt": "For a [SOFTWARE COMPONENT/FEATURE] with [SPECIFIC CHARACTERISTICS], propose a comprehensive, proactive testing strategy. Outline the types of tests that should be implemented, how automation can be leveraged, and how testing can be integrated early into the development lifecycle.",
+    "examples": [
+      {
+        "input": "A new API endpoint for user registration, which involves data validation, database interaction, and sending a welcome email.",
+        "output": "For a new user registration API endpoint:\n\n1.  **Unit Tests:** Develop unit tests for individual functions/methods (e.g., `validate_email`, `hash_password`, `save_user_to_db`, `send_welcome_email`). These should be fast and run automatically on every code change.\n2.  **Integration Tests:** Test the interaction between the API endpoint and the database, and the API endpoint and the email service (using mocks for external dependencies like the email service during testing).\n3.  **Functional/API Tests:** Test the API endpoint as a whole, simulating various user registration scenarios (successful registration, invalid input, existing user).\n4.  **Security Tests:** Check for common vulnerabilities like SQL injection or cross-site scripting in the registration payload.\n5.  **Automation:** Automate all unit, integration, and functional tests to run as part of the Continuous Integration (CI) pipeline. This ensures immediate feedback on code changes.\n6.  **Early Integration (Test-Driven Development - TDD):** Write tests *before* writing the production code. This helps define clear requirements and leads to more testable designs."
+      },
+      {
+        "input": "A React/Vue Single Page Application (SPA) with complex UI interactions, state management, and API calls.",
+        "output": "For a React/Vue Single Page Application (SPA) with complex UI interactions, state management, and API calls:\n\n1.  **Unit Tests (Component/Vuex Store/Redux Reducer/Service Logic):**\n    * **Focus:** Test individual UI components in isolation (e.g., props rendering, event handling), Vuex/Redux store mutations/actions/reducers, and pure JavaScript/TypeScript utility functions or services.\n    * **Tools:** Jest, React Testing Library, Vue Test Utils.\n    * **Automation:** Run on every commit/PR.\n\n2.  **Integration Tests (Component/Service Interaction):**\n    * **Focus:** Test how multiple components interact, how components integrate with state management, or how API services interact with data transformation logic.\n    * **Tools:** Jest with `mock-service-worker` (MSW) for API mocking, React Testing Library, Vue Test Utils.\n    * **Automation:** Run as part of CI pipeline, less frequent than unit tests.\n\n3.  **End-to-End (E2E) Tests:**\n    * **Focus:** Simulate real user flows through the entire application (e.g., user login, navigating to a page, performing an action, verifying data persistence). These confirm the system works as a whole.\n    * **Tools:** Cypress, Playwright, Selenium.\n    * **Automation:** Run on staging environments before deployment; scheduled daily/hourly runs.\n\n4.  **Visual Regression Tests (Optional but Recommended for UI):**\n    * **Focus:** Detect unintentional UI changes by comparing screenshots of components or pages over time.\n    * **Tools:** Percy, Storybook with visual testing add-ons.\n    * **Automation:** Integrated with CI/CD for UI-heavy applications.\n\n5.  **Performance Tests (for critical paths):**\n    * **Focus:** Measure loading times, rendering performance, and API response times for key user journeys.\n    * **Tools:** Lighthouse, WebPageTest, custom profiling.\n    * **Automation:** Can be integrated into CI for baseline checks.\n\n**Integration into SDLC (Shift-Left Testing):**\n* **Test-Driven Development (TDD):** Encourage writing unit and integration tests *before* writing component/application code.\n* **Component Storybook/Playground:** Use tools like Storybook (React) or Histoire (Vue) to develop and test UI components in isolation, promoting reusability and early visual feedback.\n* **CI/CD Pipeline:** Integrate all automated tests (unit, integration, E2E) into the CI/CD pipeline to ensure that every code change is validated automatically and quickly.\n* **Code Reviews:** Emphasize test coverage and test quality during code reviews."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "code-review-feedback-generation",
+    "title": "Generate Constructive Code Review Feedback",
+    "description": "Generate constructive feedback for a given code snippet or pull request, focusing on functionality, design, complexity, testability, naming, and documentation, in a collaborative tone.",
+    "category": "development",
+    "tags": ["code review", "feedback", "quality assurance", "collaboration"],
+    "prompt": "Review the following code snippet for [FUNCTIONALITY]. Provide constructive feedback focusing on its functionality, software design, complexity, testability, naming conventions, and documentation. Phrase your suggestions in a helpful and collaborative manner.\n```\n[CODE_SNIPPET]\n```",
+    "examples": [
+      {
+        "input": "```python\ndef calc_area(l, w):\n    return l * w\n```",
+        "output": "Overall, good start! A few suggestions to enhance clarity and maintainability:\n\n* **Naming:** Consider renaming `calc_area`, `l`, and `w` to more descriptive names like `calculate_rectangle_area`, `length`, and `width` to improve readability and make the function's purpose immediately clear.\n* **Docstring:** Adding a docstring explaining what the function does, its parameters, and what it returns would be very helpful for others (and your future self!) understanding its usage without needing to read the code directly.\n* **Type Hints:** For Python, adding type hints (`l: float, w: float) -> float`) can further improve code clarity and allow for static analysis.\n\nExample with suggestions:\n```python\ndef calculate_rectangle_area(length: float, width: float) -> float:\n    \"\"\"Calculates the area of a rectangle.\n\n    Args:\n        length: The length of the rectangle.\n        width: The width of the rectangle.\n\n    Returns:\n        The area of the rectangle.\n    \"\"\"\n    return length * width\n```"
+      },
+      {
+        "input": "```typescript\n// A basic React component\nfunction UserCard(props) {\n  return (\n    <div>\n      User: {props.name}\n      Age: {props.age}\n    </div>\n  );\n}\n```",
+        "output": "This is a good start for a `UserCard` component! To make it more robust and easier to maintain, here are a few suggestions:\n\n* **TypeScript Types:** Since we're using TypeScript, defining an interface for `props` would greatly improve type safety and provide clear documentation for expected props. This helps catch errors early.\n* **Destructuring Props:** Destructuring `props` in the function signature (`{ name, age }`) can make the component's dependencies explicit and the code cleaner.\n* **Prop Validation (if not using TS or for additional runtime checks):** For pure JavaScript, consider using `propTypes` for explicit prop type validation.\n* **Styling (Optional):** While out of scope for pure functionality, consider using CSS modules or styled-components for encapsulation if component-specific styles are needed.\n\nExample with suggestions (TypeScript):\n```tsx\nimport React from 'react';\n\ninterface UserCardProps {\n  name: string;\n  age: number;\n  email?: string; // Optional prop\n}\n\nconst UserCard: React.FC<UserCardProps> = ({ name, age, email }) => {\n  return (\n    <div className=\"user-card\">\n      <h3>{name}</h3>\n      <p>Age: {age}</p>\n      {email && <p>Email: {email}</p>}\n    </div>\n  );\n};\n\nexport default UserCard;\n```"
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "code-review-anti-pattern-identification",
+    "title": "Identify Anti-Patterns in Code Review",
+    "description": "Analyze a code snippet and identify common anti-patterns or violations of modern programming guidelines (e.g., Clean Code, SOLID, DRY, KISS, YAGNI), providing explanations and suggesting improvements.",
+    "category": "debugging",
+    "tags": ["code review", "anti-patterns", "code quality", "refactoring"],
+    "prompt": "Review the following code snippet and identify any anti-patterns or violations of modern programming guidelines (e.g., Clean Code, SOLID, DRY, KISS, YAGNI). Explain the issue and suggest specific improvements.\n```\n[CODE_SNIPPET]\n```",
+    "examples": [
+      {
+        "input": "```java\nclass User {\n    String name;\n    String email;\n\n    void saveToDatabase() { /* ... */ }\n    void sendEmail() { /* ... */ }\n    void validate() { /* ... */ }\n}\n```",
+        "output": "This `User` class violates the **Single Responsibility Principle (SRP)**.\n\n**Explanation:** The class has multiple reasons to change: if database logic changes, if email sending logic changes, or if validation rules change. A class should ideally have only one reason to change.\n\n**Suggested Improvements:**\n* **Extract responsibilities:** Create separate classes for `UserRepository` (for saving to database), `EmailService` (for sending emails), and `UserValidator` (for validation).\n\nRefactored suggestion:\n```java\nclass User {\n    String name;\n    String email;\n    // ... other user properties\n}\n\nclass UserRepository {\n    void save(User user) { /* ... */ }\n}\n\nclass EmailService {\n    void sendWelcomeEmail(User user) { /* ... */ }\n}\n\nclass UserValidator {\n    boolean isValid(User user) { /* ... */ return true; }\n}\n```\nThis approach aligns with SRP, making each class more focused, maintainable, and testable."
+      },
+      {
+        "input": "```python\ndef process_user_data(user_dict):\n    # Anti-pattern: Feature Envy - accessing too much data from another object\n    # and performing operations that belong to that object.\n    if user_dict['age'] < 18:\n        print(\"User is a minor.\")\n    user_dict['name'] = user_dict['name'].strip().title()\n    user_dict['email'] = user_dict['email'].lower()\n    # ... many more operations directly on user_dict\n    return user_dict\n```",
+        "output": "This `process_user_data` function exhibits the **Feature Envy** anti-pattern.\n\n**Explanation:** The function is operating extensively on data (`user_dict`) that logically belongs to another entity (a `User` object or a `User` class). It's 'envious' of the data in `user_dict` and pulls it in to perform transformations that should ideally be methods of the `User` itself.\n\n**Suggested Improvements:**\n* **Move behavior to the data:** Encapsulate user data and related behaviors within a `User` class. Methods like `normalize_name()`, `normalize_email()`, or `is_minor()` should belong to the `User` class.\n\nRefactored suggestion (Python):\n```python\nclass User:\n    def __init__(self, name: str, age: int, email: str):\n        self._name = name\n        self._age = age\n        self._email = email\n\n    def normalize_name(self) -> None:\n        self._name = self._name.strip().title()\n\n    def normalize_email(self) -> None:\n        self._email = self._email.lower()\n\n    def is_minor(self) -> bool:\n        return self._age < 18\n\n    # Getters (or properties) to access data if needed\n    @property\n    def name(self):\n        return self._name\n\n    @property\n    def age(self):\n        return self._age\n\n    @property\n    def email(self):\n        return self._email\n\ndef process_user(user: User) -> None:\n    # Now, the 'process_user' function interacts with the User object at a higher level\n    user.normalize_name()\n    user.normalize_email()\n    if user.is_minor():\n        print(f\"{user.name} is a minor.\")\n    print(f\"Processed user: {user.name}, {user.email}, {user.age}\")\n\n# Usage:\n# user_data = User(\"  john DOE  \", 25, \"JOHN.DOE@example.com\")\n# process_user(user_data)\n\n# minor_user = User(\"  jane smith \", 16, \"JANE.SMITH@EXAMPLE.COM\")\n# process_user(minor_user)\n```\nBy moving the data-related operations into the `User` class, the `process_user` function becomes simpler and adheres better to object-oriented principles, as it tells the `User` object to do things rather than doing them to the `User`'s raw data."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "version-control-meaningful-commits",
+    "title": "Generate Meaningful Git Commit Messages",
+    "description": "Generate a clear, concise, and descriptive Git commit message for a given set of code changes or a feature implementation, ensuring it provides context and relates to a single task or ticket.",
+    "category": "development",
+    "tags": ["version control", "git", "commit messages", "collaboration"],
+    "prompt": "Generate a detailed and meaningful Git commit message for the following changes: [DESCRIPTION OF CODE CHANGES/FEATURE]. Ensure the message provides sufficient context, explains 'why' the change was made, and adheres to best practices (e.g., single task focus).",
+    "examples": [
+      {
+        "input": "Changes involve adding a new user registration form, including front-end validation and back-end API integration.",
+        "output": "```\nfeat: Implement user registration form and API integration\n\nThis commit introduces the new user registration functionality.\n\n- Adds the front-end registration form with client-side validation for email and password.\n- Implements the `/api/register` endpoint on the backend.\n- Integrates front-end form submission with the new backend API.\n- Includes unit tests for backend user creation logic.\n\nResolves #123 (User Registration Feature)\n```\nThis commit message provides a clear subject, describes 'what' was changed and 'why', and links to a relevant issue."
+      },
+      {
+        "input": "Fix for a bug where a product's price was not displaying correctly on the product detail page due to an incorrect currency formatting function. The fix updates the formatting logic and adds a test case.",
+        "output": "```\nfix(product): Correct product price display and currency formatting\n\nAddresses an issue where product prices on the detail page were not being displayed with the correct currency format (e.g., missing currency symbol or incorrect decimal places).\n\n- Updates the `formatCurrency` utility function to correctly apply the configured currency symbol and ensure two decimal places.\n- Modifies the `ProductDetail` component to use the updated `formatCurrency` function.\n- Adds a new Jest unit test case to `formatCurrency.test.ts` to specifically cover various price inputs and currency symbols, preventing future regressions.\n\nCloses #456 (Incorrect currency display on product page)\n```\nThis commit message clearly states the type of change (`fix`), the scope (`product`), describes the problem, explains the solution, and references the associated issue, making it highly meaningful for review and history."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "version-control-branching-strategy",
+    "title": "Propose Git Branching Strategy",
+    "description": "Propose a suitable Git branching strategy (e.g., Feature Branches, Git Flow, GitHub Flow) for a team based on their project size, release cadence, and collaboration needs. Explain the chosen strategy's workflow.",
+    "category": "development",
+    "tags": [
+      "version control",
+      "git",
+      "branching strategy",
+      "team collaboration"
+    ],
+    "prompt": "For a [TEAM SIZE/PROJECT TYPE] team with a [RELEASE CADENCE], propose an appropriate Git branching strategy. Describe the workflow for developing new features, bug fixes, and handling releases under this strategy.",
+    "examples": [
+      {
+        "input": "A small agile team (3-5 developers) working on a web application with continuous deployment and frequent small releases.",
+        "output": "For a small agile team with continuous deployment and frequent small releases, **GitHub Flow** is a highly suitable Git branching strategy.\n\n**Workflow Description:**\n1.  **`main` branch is always deployable:** The `main` branch (or `master`) always contains production-ready code.\n2.  **Feature Branches:** For every new feature or bug fix, developers create a new branch directly from `main`. Branch names should be descriptive (e.g., `feat/add-user-login`, `fix/broken-checkout`).\n3.  **Frequent Commits:** Developers commit changes frequently to their feature branch, pushing to the remote regularly.\n4.  **Pull Requests (PRs):** When a feature is complete or ready for review, a pull request is opened from the feature branch to `main`. This triggers automated tests and peer reviews.\n5.  **Review and Iterate:** Team members review the PR, provide feedback, and the author iterates on the changes.\n6.  **Merge to `main` and Deploy:** Once the PR is approved and all tests pass, the feature branch is merged into `main`. This merge often triggers an automated deployment to production.\n\n**Benefits for a small agile team:**\n* **Simplicity:** Easier to understand and manage than more complex models like Git Flow.\n* **Continuous Delivery/Deployment:** The `main` branch's constant deployability supports rapid releases.\n* **Collaboration:** Pull requests facilitate effective code reviews and knowledge sharing.\n* **Less Overhead:** Fewer long-lived branches reduce complexity and merge conflicts."
+      },
+      {
+        "input": "A large, distributed team (15+ developers) working on a complex enterprise application with strict release cycles (e.g., quarterly releases) and a need to maintain multiple stable versions simultaneously.",
+        "output": "For a large, distributed team working on a complex enterprise application with strict, versioned release cycles and a need to maintain multiple stable versions, **Git Flow** (a more robust branching model) is highly appropriate.\n\n**Workflow Description:**\nGit Flow uses two main long-lived branches:\n\n* **`master` (or `main`):** Stores the official release history. Commits to `master` are tagged with release numbers.\n* **`develop`:** Serves as the integration branch for all new features. It contains the complete history of the project.\n\nAdditionally, it uses supporting branches for specific purposes:\n\n* **`Feature branches`:** (`feature/*`) Created from `develop` for new features. Merged back into `develop` once complete.\n* **`Release branches`:** (`release/*`) Created from `develop` when preparing for a new release. Only bug fixes or minor adjustments are made here. Merged into both `master` (and tagged) and `develop`.\n* **`Hotfix branches`:** (`hotfix/*`) Created from `master` to quickly patch production issues. Merged back into both `master` (and tagged) and `develop`.\n\n**Benefits for a large, distributed team with strict releases:**\n* **Clear Structure:** Provides a well-defined and predictable workflow for development and releases, crucial for large teams.\n* **Supports Multiple Versions:** The `master` and `release` branches clearly delineate released versions, allowing for simultaneous maintenance of different production versions.\n* **Controlled Releases:** The `release` branch acts as a stabilization phase, allowing for testing and bug fixing without disrupting ongoing feature development on `develop`.\n* **Robust Bug Fixes:** `Hotfix` branches enable rapid production fixes that are also correctly integrated back into the main development line.\n\n**Considerations/Drawbacks:**\n* **Complexity:** Can be more complex to learn and manage than simpler flows, especially for new team members.\n* **Merge Overhead:** More branches can lead to more frequent and potentially complex merges.\n* **Less Agile:** The fixed release cycles and branching structure might feel less fluid than continuous deployment models."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "documentation-inline-comments",
+    "title": "Generate Contextual Inline Comments",
+    "description": "Generate inline comments that explain 'why' a piece of code is written in a certain way, rather than simply reiterating 'what' the code does, especially for complex or non-obvious logic.",
+    "category": "documentation",
+    "tags": ["code documentation", "inline comments", "readability"],
+    "prompt": "For the following code snippet, add inline comments that explain the reasoning or 'why' behind specific complex or non-obvious lines of code, rather than just restating the obvious. Keep comments concise and valuable.\n```\n[CODE_SNIPPET]\n```",
+    "examples": [
+      {
+        "input": "```python\ndef calculate_discount(price, quantity):\n    total = price * quantity\n    if total > 100:\n        return total * 0.9\n    return total\n```",
+        "output": "```python\ndef calculate_discount(price, quantity):\n    total = price * quantity\n    # Apply a 10% discount only if the total order value exceeds $100,\n    # aiming to incentivize larger purchases.\n    if total > 100:\n        return total * 0.9\n    return total\n```\nThe comment explains the business rationale for the discount threshold, not just the arithmetic."
+      },
+      {
+        "input": "```typescript\nfunction processUserData(userList: any[]) {\n  // Assume userList contains objects where some might be invalid or missing fields\n  const validUsers = userList.filter(user => user && typeof user.id === 'string' && typeof user.name === 'string');\n  const transformedData = validUsers.map(user => {\n    // Complex transformation logic starts here\n    let userName = user.name.trim();\n    let userId = user.id.slice(0, 8); // Take first 8 chars of ID\n    if (userName.length > 20) {\n      userName = userName.substring(0, 20) + '...';\n    }\n    return { id: userId, displayName: userName.toUpperCase() };\n  });\n  return transformedData;\n}\n```",
+        "output": "```typescript\nfunction processUserData(userList: any[]) {\n  // Filter out invalid user objects early to prevent runtime errors\n  // and simplify subsequent processing steps. This assumes 'id' and 'name' are essential.\n  const validUsers = userList.filter(user => user && typeof user.id === 'string' && typeof user.name === 'string');\n\n  const transformedData = validUsers.map(user => {\n    let userName = user.name.trim();\n    // Truncate user ID to 8 characters for display purposes, as full IDs are too long for UI.\n    let userId = user.id.slice(0, 8); \n\n    // Ensure display name fits within UI constraints to avoid overflow issues.\n    if (userName.length > 20) {\n      userName = userName.substring(0, 20) + '...';\n    }\n    \n    // Standardize user names to uppercase for consistent display across the application.\n    return { id: userId, displayName: userName.toUpperCase() };\n  });\n  return transformedData;\n}\n```\nThese comments explain the *reasoning* behind the data cleaning, truncation, and formatting choices, providing context for future maintenance."
+      }
+    ],
+    "effectiveness": 4,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "documentation-api-documentation",
+    "title": "Generate API Documentation for Methods/Classes",
+    "description": "Generate comprehensive API documentation (e.g., Javadoc, PyDoc) for a given method or class, describing its purpose, arguments, return values, exceptions, and usage contract for future developers.",
+    "category": "documentation",
+    "tags": [
+      "code documentation",
+      "API documentation",
+      "method documentation",
+      "class documentation"
+    ],
+    "prompt": "Generate a Javadoc-style documentation block for the following Java method/class. Ensure it clearly describes its purpose, parameters, return values, and any exceptions it might throw.\n```java\n[JAVA_CODE_SNIPPET]\n```",
+    "examples": [
+      {
+        "input": "```java\npublic class UserManager {\n    public User createUser(String username, String password) throws InvalidInputException, DuplicateUserException {\n        // ... implementation\n        return new User(username);\n    }\n}\n```",
+        "output": "```java\n/**\n * Manages user accounts, including creation, retrieval, and updates.\n */\npublic class UserManager {\n\n    /**\n     * Creates a new user account with the given username and password.\n     * Validates input and ensures username uniqueness before creation.\n     *\n     * @param username The desired username for the new account. Must be unique and non-empty.\n     * @param password The password for the new account. Must meet complexity requirements.\n     * @return A new {@code User} object representing the created account.\n     * @throws InvalidInputException If the username or password does not meet validation criteria.\n     * @throws DuplicateUserException If a user with the provided username already exists.\n     */\n    public User createUser(String username, String password) throws InvalidInputException, DuplicateUserException {\n        // ... implementation\n        return new User(username);\n    }\n}\n```\nThis Javadoc block provides a clear contract for how to use the `createUser` method."
+      },
+      {
+        "input": "```python\ndef get_product_details(product_id: str) -> dict:\n    # Fetches product details from a database or external API\n    pass\n```",
+        "output": "```python\ndef get_product_details(product_id: str) -> dict:\n    \"\"\"Retrieves detailed information for a specific product by its ID.\n\n    This function interacts with the product database/API to fetch comprehensive data\n    such as name, description, price, stock, and categories.\n\n    Args:\n        product_id: The unique identifier string for the product.\n\n    Returns:\n        A dictionary containing the product's details. Returns an empty dictionary\n        if the product is not found.\n\n    Raises:\n        requests.exceptions.ConnectionError: If there's an issue connecting to the product service.\n        ValueError: If the product_id format is invalid.\n    \"\"\"\n    # ... implementation\n    return {}\n```\nThis PyDoc-style documentation clearly defines the function's purpose, arguments, return values, and potential exceptions, which is crucial for developers consuming this API."
+      },
+      {
+        "input": "```typescript\n// In a React component or utility file\ninterface UserProfileData {\n  id: string;\n  name: string;\n  email: string;\n  lastLogin: Date;\n}\n\nfunction fetchUserProfile(userId: string): Promise<UserProfileData> {\n  // ... API call to fetch user data\n  return Promise.resolve({ id: userId, name: 'Test User', email: 'test@example.com', lastLogin: new Date() });\n}\n```",
+        "output": "```typescript\n/**\n * Fetches detailed user profile data from the backend API.\n * \n * @param userId The unique identifier of the user whose profile is to be fetched.\n * @returns A Promise that resolves with the UserProfileData object.\n * @throws {Error} If the network request fails or the user ID is invalid.\n */\nfunction fetchUserProfile(userId: string): Promise<UserProfileData> {\n  // ... API call to fetch user data\n  return Promise.resolve({ id: userId, name: 'Test User', email: 'test@example.com', lastLogin: new Date() });\n}\n```\nThis JSDoc-style comment (common in TypeScript/JavaScript projects) provides clear API documentation for `fetchUserProfile`, explaining its parameters, return type, and potential errors."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  },
+  {
+    "id": "documentation-readme-generation",
+    "title": "Generate Project README.md",
+    "description": "Generate a comprehensive `README.md` file for a given project description, including sections for purpose, setup, usage, and reference to detailed guides.",
+    "category": "documentation",
+    "tags": ["project documentation", "README", "getting started"],
+    "prompt": "Generate a `README.md` file for a [PROJECT TYPE] project named '[PROJECT NAME]' that [PROJECT PURPOSE]. Include sections for project overview, setup instructions, how to run, and a reference to more detailed documentation.",
+    "examples": [
+      {
+        "input": "A Python web application for a simple task manager.",
+        "output": "```markdown\n# TaskMaster Web App\n\n## 📋 Project Overview\n\nTaskMaster is a simple web application built with Python (Flask/Django) that allows users to create, manage, and track their daily tasks. It provides a clean interface for adding new tasks, marking them as complete, and viewing task lists.\n\n## 🚀 Getting Started\n\nFollow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.\n\n### Prerequisites\n\n* Python 3.8+\n* pip (Python package installer)\n* (Optional) virtualenv\n\n### Installation\n\n1.  **Clone the repository:**\n    ```bash\n    git clone https://github.com/your-username/taskmaster.git\n    cd taskmaster\n    ```\n2.  **Create and activate a virtual environment:**\n    ```bash\n    python -m venv venv\n    source venv/bin/activate  # On Windows: `venv\\Scripts\\activate`\n    ```\n3.  **Install dependencies:**\n    ```bash\n    pip install -r requirements.txt\n    ```\n\n## 🏃‍♂️ How to Run\n\n1.  **Set up environment variables** (if any, e.g., database connection strings).\n2.  **Run database migrations** (if applicable):\n    ```bash\n    python manage.py migrate # For Django example\n    ```\n3.  **Start the application:**\n    ```bash\n    python app.py # For Flask example\n    ```\n    The application should now be accessible at `http://127.0.0.1:5000` (or as configured).\n\n## 📖 Further Documentation\n\nFor more detailed guides on development, testing, and deployment, please refer to the `docs/` directory:\n\n* [DEVELOPMENT.md](docs/DEVELOPMENT.md)\n* [TESTING.md](docs/TESTING.md)\n* [DEPLOYMENT.md](docs/DEPLOYMENT.md)\n\n---\n\n✨ Built with ❤️ by [Your Name/Team Name]\n```\nThis README provides essential information for new users and developers, serving as a primary entry point to the project."
+      },
+      {
+        "input": "A TypeScript/React library for common UI components.",
+        "output": "```markdown\n# @my-org/ui-components\n\n## 📋 Project Overview\n\n`@my-org/ui-components` is a shared library of common UI components built with React and TypeScript. It aims to provide a consistent look and feel across our applications and accelerate front-end development. This library includes reusable components such as buttons, input fields, modals, and more.\n\n## 🚀 Getting Started\n\nTo use this library in your React project, follow the instructions below.\n\n### Prerequisites\n\n* Node.js (LTS version recommended)\n* npm or yarn\n* A React project (created with Create React App, Next.js, Vite, etc.)\n\n### Installation\n\nInstall the package via npm or yarn:\n\n```bash\nnpm install @my-org/ui-components\n# OR\nyarn add @my-org/ui-components\n```\n\n## 💡 Usage\n\nImport components directly into your React files:\n\n```tsx\nimport React from 'react';\nimport { Button, InputField } from '@my-org/ui-components';\n\nconst MyComponent: React.FC = () => {\n  const [value, setValue] = React.useState('');\n  return (\n    <div>\n      <Button onClick={() => alert('Button clicked!')}>Click Me</Button>\n      <InputField\n        label=\"Your Name\"\n        placeholder=\"Enter your name\"\n        value={value}\n        onChange={(e) => setValue(e.target.value)}\n      />\n    </div>\n  );\n};\n\nexport default MyComponent;\n```\n\n## 📖 Storybook & Component Documentation\n\nFor detailed documentation, examples, and interactive playgrounds for each component, please refer to our Storybook:\n\n[**View Storybook Documentation**](https://your-storybook-url.com)\n\n## 🤝 Contributing\n\nWe welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on setting up the development environment, running tests, and submitting pull requests.\n\n---\n\n📦 Maintained by the Frontend Team @ MyOrg\n```\nThis README targets developers who will consume the library, providing quick installation and usage instructions, and pointing to detailed component documentation via Storybook."
+      }
+    ],
+    "effectiveness": 5,
+    "author": "Leon Nonnast",
+    "version": "1.0.0",
+    "created_at": "2025-07-18T15:59:39Z",
+    "updated_at": "2025-07-18T15:59:39Z"
+  }
+]

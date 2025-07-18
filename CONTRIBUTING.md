@@ -1,6 +1,6 @@
-# Contributing to Dev MCP Prompt Server
+# Contributing to MCP DevPrompts
 
-Thank you for your interest in contributing to the Dev MCP Prompt Server! We welcome contributions from the community to help make this project better.
+Thank you for your interest in contributing to MCP DevPrompts! We welcome contributions from the community to help make this project better.
 
 ## How to Contribute
 
@@ -74,8 +74,8 @@ Tools extend the functionality of the MCP server. Follow the schema in `public/s
 #### Development Setup
 ```bash
 # Clone the repository
-git clone https://github.com/dev-mcp/prompt-server.git
-cd prompt-server
+git clone https://github.com/mcpdevprompts/server.git
+cd server
 
 # Install dependencies
 npm install
@@ -162,4 +162,4 @@ If you have questions about contributing, please:
 - Join our Discord community
 - Check existing documentation
 
-Thank you for helping make Dev MCP Prompt Server better for everyone! 🚀
+Thank you for helping make MCP DevPrompts better for everyone! 🚀

@@ -1,0 +1,23 @@
+{
+  "$schema": "../schema/tool-schema.json",
+  "id": "load_skills",
+  "name": "load_skills", 
+  "description": "Load and combine multiple skills into an agent's knowledge base",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "skill_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Array of skill IDs to load (e.g., ['clean-code-clarity-readability', 'testing-strategies'])"
+      },
+      "agent_name": {
+        "type": "string",
+        "description": "Optional: name for the specialized agent"
+      }
+    },
+    "required": ["skill_ids"]
+  }
+}

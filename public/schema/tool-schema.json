@@ -1,0 +1,29 @@
+{
+  "title": "string",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Eine eindeutige Kennung für das Tool."
+    },
+    "name": {
+      "type": "string",
+      "description": "Der Name des Tools, der in der Benutzeroberfläche angezeigt wird."
+    },
+    "description": {
+      "type": "string",
+      "description": "Eine kurze Beschreibung der Funktion des Tools."
+    },
+    "input_schema": {
+      "type": "object",
+      "description": "Ein JSON-Schema, das die erwarteten Eingabeparameter für das Tool definiert.",
+      "properties": {
+        "type": { "type": "string", "const": "object" },
+        "properties": { "type": "object" },
+        "required": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    }
+  },
+  "required": ["id", "name", "description", "input_schema"]
+}

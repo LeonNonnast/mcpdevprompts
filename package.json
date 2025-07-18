@@ -1,11 +1,11 @@
 {
-  "name": "@dev-mcp/prompt-server",
+  "name": "@mcpdevprompts/server",
   "version": "1.0.0",
-  "description": "MCP Server providing curated prompts for AI-powered development workflows",
+  "description": "MCP DevPrompts - Curated prompts for AI-powered development workflows",
   "main": "build/server.js",
   "type": "module",
   "bin": {
-    "dev-mcp": "./build/server.js"
+    "mcpdevprompts": "./build/server.js"
   },
   "scripts": {
     "build": "tsc && chmod +x build/server.js",
@@ -24,7 +24,7 @@
     "ux",
     "templates"
   ],
-  "author": "dev-mcp team",
+  "author": "MCP DevPrompts Team",
   "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.4.0",
@@ -39,7 +39,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dev-mcp/prompt-server.git"
+    "url": "https://github.com/mcpdevprompts/server.git"
   },
   "mcp": {
     "server": {

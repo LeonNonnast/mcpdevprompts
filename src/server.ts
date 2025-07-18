@@ -14,10 +14,10 @@ import { PromptManager } from "./prompt-manager.js";
 import { Logger } from "./utils/logger.js";
 import { ToolManager } from "./tool-manager.js";
 
-const logger = new Logger("dev-mcp-server");
+const logger = new Logger("mcpdevprompts-server");
 
 /**
- * Dev MCP Prompt Server
+ * MCP DevPrompts Server
  * Provides curated prompts for AI-powered development workflows
  */
 class DevMCPServer {
@@ -27,7 +27,7 @@ class DevMCPServer {
 
   constructor() {
     this.server = new Server({
-      name: "dev-mcp-prompt-server",
+      name: "mcpdevprompts-server",
       version: "1.0.0",
     });
 
@@ -209,13 +209,80 @@ class DevMCPServer {
             };
           case "get_tool_stats":
             const toolStats = this.toolManager.getStats();
-            logger.info("Retrieved prompt statistics");
+            logger.info("Retrieved tool statistics");
 
             return {
               content: [
                 {
                   type: "text",
                   text: JSON.stringify(toolStats, null, 2),
+                },
+              ],
+            };
+
+          case "list_skills":
+            const skillsPrompts = await this.promptManager.searchPromptsByTag("skills");
+            const skillsList = skillsPrompts.map(skill => ({
+              id: skill.id,
+              title: skill.title,
+              description: skill.description,
+              tags: skill.tags,
+              effectiveness: skill.effectiveness
+            }));
+            
+            logger.info(`Listed ${skillsList.length} skills`);
+
+            return {
+              content: [
+                {
+                  type: "text",
+                  text: JSON.stringify(skillsList, null, 2),
+                },
+              ],
+            };
+
+          case "load_skills":
+            if (!args || !Array.isArray(args.skill_ids)) {
+              throw new McpError(
+                ErrorCode.InvalidRequest,
+                "skill_ids array is required"
+              );
+            }
+
+            const skillPrompts = [];
+            for (const skillId of args.skill_ids) {
+              const skill = await this.promptManager.getPrompt(skillId);
+              if (skill) {
+                skillPrompts.push(skill);
+              }
+            }
+
+            if (skillPrompts.length === 0) {
+              throw new McpError(
+                ErrorCode.InvalidRequest,
+                "No valid skills found with provided IDs"
+              );
+            }
+
+            const agentName = args.agent_name || "Specialized Agent";
+            const combinedSkills = skillPrompts.map(skill => skill.prompt).join("\n\n---\n\n");
+            
+            const skillLoadPrompt = `You are now a ${agentName} with the following specialized skills:
+
+${combinedSkills}
+
+You have been equipped with these ${skillPrompts.length} specialized skills:
+${skillPrompts.map(skill => `- ${skill.title}: ${skill.description}`).join('\n')}
+
+Please acknowledge that you have integrated these skills and are ready to apply them in your responses. Use these skills naturally when relevant to user requests.`;
+
+            logger.info(`Loaded ${skillPrompts.length} skills for agent: ${agentName}`);
+
+            return {
+              content: [
+                {
+                  type: "text",
+                  text: skillLoadPrompt,
                 },
               ],
             };
@@ -240,7 +307,7 @@ class DevMCPServer {
   }
 
   async start(): Promise<void> {
-    logger.info("Starting Dev MCP Prompt Server...");
+    logger.info("Starting MCP DevPrompts Server...");
 
     try {
       await this.promptManager.loadPrompts();

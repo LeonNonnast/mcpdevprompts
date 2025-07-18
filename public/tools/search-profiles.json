@@ -1,0 +1,11 @@
+{
+  "$schema": "../schema/tool-schema.json",
+  "id": "search_profiles",
+  "name": "search_profiles",
+  "description": "Search for profiles",
+  "input_schema": {
+    "type": "object",
+    "properties": {},
+    "required": []
+  }
+}

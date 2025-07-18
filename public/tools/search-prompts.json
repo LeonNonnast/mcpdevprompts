@@ -1,0 +1,16 @@
+{
+  "$schema": "../schema/tool-schema.json",
+  "id": "search_prompts",
+  "name": "search_prompts",
+  "description": "Search for prompts by keyword or tag",
+  "input_schema": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Search query"
+      }
+    },
+    "required": ["query"]
+  }
+}

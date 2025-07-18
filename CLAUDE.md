@@ -26,7 +26,7 @@ The repository uses Claude Code's profile system with a specialized "Ideen-Analy
 ## Repository Structure
 
 ```
-dev-mcp/
+mcpdevprompts/
 ├── .claude/
 │   ├── commands/ia-onboarding.md    # Custom slash command for IA onboarding
 │   ├── profiles/ia-profile.md       # Complete IA profile definition
