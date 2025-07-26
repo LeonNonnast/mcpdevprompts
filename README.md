@@ -7,6 +7,10 @@
 
 > **Curated AI prompts for developers, delivered through the Model Context Protocol**
 
+<a href="https://glama.ai/mcp/servers/@LeonNonnast/mcpdevprompts">
+  <img width="380" height="200" src="https://glama.ai/mcp/servers/@LeonNonnast/mcpdevprompts/badge" alt="Dev Prompt Server MCP server" />
+</a>
+
 A lightweight MCP server providing battle-tested prompts for AI-powered development workflows. Create specialized agents by combining modular skills, or use expert AI profiles for debugging, SQL optimization, and more.
 
 ## 🚀 Quick Start
