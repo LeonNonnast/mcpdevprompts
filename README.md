@@ -14,18 +14,17 @@ A lightweight MCP server providing battle-tested prompts for AI-powered developm
 ### Installation
 
 ```bash
-# Install globally
-npm install -g @mcpdevprompts
+git clone https://github.com/LeonNonnast/mcpdevprompts
+cd mcpdevprompts
+npm install
+npm run build
 
-# Or run directly
-npx @mcpdevprompts
+claude mcp add mcpdevprompts --node /path/to/mcpdevprompts/build/server.js
 ```
 
 ### Usage with Claude
 
 ```bash
-# Add to Claude MCP servers
-claude mcp add mcpdevprompts
 
 # Use prompts directly
 claude prompt debug-andy "My API returns 500 errors randomly"
